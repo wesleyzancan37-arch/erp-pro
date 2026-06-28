@@ -436,7 +436,7 @@
 
     <script>
         // ========================================================================
-        // DATA
+        // DATA - INICIALIZAÇÃO COM DADOS DE EXEMPLO
         // ========================================================================
         let products = [];
         let suppliers = [];
@@ -457,6 +457,61 @@
         let transactionFilter = 'all';
         let currentUser = null;
         let autoUpdateInterval = null;
+
+        // ========================================================================
+        // FUNÇÃO PARA ADICIONAR DADOS DE EXEMPLO
+        // ========================================================================
+        function addSampleData() {
+            if (products.length === 0) {
+                products = [
+                    { id: 1, name: 'Tecido Xadrez Vermelho', price: 'R$ 49,90', stock: '45m', category: 'Xadrez', supplier: 'Tecidos Brasil' },
+                    { id: 2, name: 'Oxford Branco Premium', price: 'R$ 65,00', stock: '32m', category: 'Oxford', supplier: 'Oxford Premium' },
+                    { id: 3, name: 'Tricoline Floral Verão', price: 'R$ 38,50', stock: '28m', category: 'Tricoline', supplier: 'Estampas Fine' },
+                    { id: 4, name: 'Linho Bege Natural', price: 'R$ 72,00', stock: '8m', category: 'Linho', supplier: 'Linho Nobre' }
+                ];
+                nextId.product = 5;
+            }
+            if (clients.length === 0) {
+                clients = [
+                    { id: 1, name: 'Maria Silva', email: 'maria@email.com', phone: '(11) 91234-5678', address: 'Rua das Flores, 123', status: 'Ativo' },
+                    { id: 2, name: 'João Santos', email: 'joao@email.com', phone: '(11) 98765-4321', address: 'Av. Principal, 456', status: 'Ativo' },
+                    { id: 3, name: 'Ana Oliveira', email: 'ana@email.com', phone: '(11) 95678-9012', address: 'Rua dos Pinheiros, 789', status: 'Ativo' }
+                ];
+                nextId.client = 4;
+            }
+            if (suppliers.length === 0) {
+                suppliers = [
+                    { id: 1, name: 'Tecidos Brasil', contact: 'contato@tecidosbrasil.com', phone: '(11) 3456-7890', productTypes: ['Xadrez', 'Cetim', 'Tricoline'] },
+                    { id: 2, name: 'Oxford Premium', contact: 'vendas@oxfordpremium.com', phone: '(11) 9876-5432', productTypes: ['Oxford'] },
+                    { id: 3, name: 'Estampas Fine', contact: 'info@estampasfine.com', phone: '(11) 4567-8901', productTypes: ['Tricoline'] }
+                ];
+                nextId.supplier = 4;
+            }
+            if (sales.length === 0) {
+                const hoje = new Date().toISOString().slice(0,10);
+                sales = [
+                    { id: 1, client: 'Maria Silva', product: 'Tecido Xadrez Vermelho', quantity: 2, unitPrice: 'R$ 49,90', total: 'R$ 99,80', status: 'Pago', date: hoje + ' 10:30' },
+                    { id: 2, client: 'João Santos', product: 'Oxford Branco Premium', quantity: 1, unitPrice: 'R$ 65,00', total: 'R$ 65,00', status: 'Pago', date: hoje + ' 09:15' },
+                    { id: 3, client: 'Ana Oliveira', product: 'Tricoline Floral Verão', quantity: 3, unitPrice: 'R$ 38,50', total: 'R$ 115,50', status: 'Pago', date: hoje + ' 08:45' }
+                ];
+                nextId.sale = 4;
+                
+                // Adiciona transações financeiras automaticamente
+                sales.forEach(s => {
+                    const totalVal = parseFloat(s.total.replace('R$ ', '').replace(',', '.'));
+                    transactions.push({
+                        id: nextId.transaction++,
+                        description: 'Venda #' + s.id + ' - ' + s.client,
+                        amount: totalVal,
+                        type: 'income',
+                        date: s.date,
+                        category: 'Vendas'
+                    });
+                });
+            }
+            saveData();
+            renderAll();
+        }
 
         // ========================================================================
         // AUTH
@@ -531,7 +586,7 @@
             if (autoUpdateInterval) clearInterval(autoUpdateInterval);
             autoUpdateInterval = setInterval(() => {
                 updateAll();
-            }, 3000); // Atualiza a cada 3 segundos
+            }, 3000);
         }
 
         function stopAutoUpdate() {
@@ -545,17 +600,17 @@
         // UPDATE ALL - FUNÇÃO PRINCIPAL DE ATUALIZAÇÃO
         // ========================================================================
         function updateAll() {
-            // 1. Recalcula e atualiza os cards de KPI na tela (Receita, Vendas, Clientes, Lucro, Estoque baixo, etc.)
+            // 1. Recalcula e atualiza os cards de KPI
             updateDashboard(); 
             
-            // 2. Mantém o gráfico atualizado de acordo com o período selecionado ('week', 'month' ou 'year')
+            // 2. Mantém o gráfico atualizado
             if (typeof currentPeriod !== 'undefined') {
                 updateChart(currentPeriod);
             } else {
-                updateChart('week'); // Fallback padrão caso não esteja definido
+                updateChart('week');
             }
             
-            // 3. Atualiza as notificações/badges do menu lateral
+            // 3. Atualiza as notificações/badges
             if (typeof updateBadges === 'function') {
                 updateBadges();
             }
@@ -576,8 +631,6 @@
             if (!document.getElementById('ordersView').classList.contains('hidden')) {
                 renderOrders();
             }
-            
-            console.log('🔄 Métricas e KPIs atualizados automaticamente de forma dinâmica!');
         }
 
         // ========================================================================
@@ -595,14 +648,17 @@
                     orders = d.orders || [];
                     sales = d.sales || [];
                     users = d.users || [
-                        { id: 1, name: 'Administrador', email: 'admin@jwtecidos.com', password: 'admin123', role: 'Administrador', permissions: ['all'] },
-                        { id: 2, name: 'João Vendedor', email: 'vendedor@jwtecidos.com', password: 'vendedor123', role: 'Vendedor', permissions: ['Ver Dashboard','Fazer Venda','Consultar Estoque','Cadastrar Cliente','Editar Cliente','Ver Estoque'] },
-                        { id: 3, name: 'Maria Gerente', email: 'gerente@jwtecidos.com', password: 'gerente123', role: 'Gerente', permissions: ['Ver Dashboard','Fazer Venda','Ver Estoque','Cadastrar Produto','Editar Produto','Cadastrar Cliente','Editar Cliente','Ver Financeiro','Ver Relatórios','Aprovar Descontos'] }
+                        { id: 1, name: 'Administrador', email: 'admin@jwtecidos.com', password: 'admin123', role: 'Administrador', permissions: ['all'] }
                     ];
-                    nextId = d.nextId || { product: 1, supplier: 1, client: 1, transaction: 1, order: 1, sale: 1, user: 4 };
+                    nextId = d.nextId || { product: 1, supplier: 1, client: 1, transaction: 1, order: 1, sale: 1, user: 2 };
                 }
             } catch (e) { console.error('Erro ao carregar:', e); }
-            renderAll();
+            // Se não houver dados, adiciona dados de exemplo
+            if (products.length === 0 && sales.length === 0) {
+                addSampleData();
+            } else {
+                renderAll();
+            }
         }
 
         function saveData() {
@@ -695,14 +751,19 @@
         }
 
         // ========================================================================
-        // DASHBOARD - ATUALIZAÇÃO AUTOMÁTICA
+        // DASHBOARD - CORRIGIDO PARA EVITAR NaN
         // ========================================================================
         function updateDashboard() {
             const today = new Date().toISOString().slice(0,10);
             
-            // Receita Hoje
+            // Receita Hoje - com verificação de NaN
             const todaySales = sales.filter(s => s.date && s.date.startsWith(today));
-            const totalRevenue = todaySales.reduce((sum, s) => sum + parseFloat(s.total || 0), 0);
+            let totalRevenue = 0;
+            todaySales.forEach(s => {
+                const val = parseFloat(String(s.total || '0').replace('R$ ', '').replace(',', '.'));
+                if (!isNaN(val)) totalRevenue += val;
+            });
+            
             document.getElementById('revenueValue').textContent = 'R$ ' + totalRevenue.toFixed(2).replace('.', ',');
             document.getElementById('revenueChange').className = 'kpi-change ' + (totalRevenue > 0 ? 'up' : 'empty');
             document.getElementById('revenueChange').textContent = totalRevenue > 0 ? '✅ Hoje' : 'Aguardando';
@@ -724,9 +785,17 @@
             document.getElementById('profitChange').className = 'kpi-change ' + (profit > 0 ? 'up' : 'empty');
             document.getElementById('profitChange').textContent = profit > 0 ? '✅ Hoje' : 'Aguardando';
 
-            // Fluxo de Caixa
-            const todayIncome = transactions.filter(t => t.type === 'income' && t.date && t.date.startsWith(today)).reduce((s, t) => s + t.amount, 0);
-            const todayExpense = transactions.filter(t => t.type === 'expense' && t.date && t.date.startsWith(today)).reduce((s, t) => s + t.amount, 0);
+            // Fluxo de Caixa - com verificação de NaN
+            let todayIncome = 0;
+            let todayExpense = 0;
+            transactions.forEach(t => {
+                if (t.date && t.date.startsWith(today)) {
+                    const val = parseFloat(t.amount) || 0;
+                    if (t.type === 'income') todayIncome += val;
+                    else if (t.type === 'expense') todayExpense += val;
+                }
+            });
+            
             document.getElementById('cashInflow').textContent = 'R$ ' + todayIncome.toFixed(2).replace('.', ',');
             document.getElementById('cashOutflow').textContent = 'R$ ' + todayExpense.toFixed(2).replace('.', ',');
             document.getElementById('cashBalance').textContent = 'R$ ' + (todayIncome - todayExpense).toFixed(2).replace('.', ',');
@@ -783,7 +852,7 @@
         }
 
         // ========================================================================
-        // CHART
+        // CHART - CORRIGIDO PARA EVITAR NaN
         // ========================================================================
         function updateChart(period) {
             currentPeriod = period;
@@ -800,7 +869,12 @@
                     d.setDate(d.getDate() - (6 - i));
                     const dateStr = d.toISOString().slice(0,10);
                     const daySales = sales.filter(s => s.date && s.date.startsWith(dateStr));
-                    values[i] = daySales.reduce((sum, s) => sum + parseFloat(s.total || 0), 0);
+                    let total = 0;
+                    daySales.forEach(s => {
+                        const val = parseFloat(String(s.total || '0').replace('R$ ', '').replace(',', '.'));
+                        if (!isNaN(val)) total += val;
+                    });
+                    values[i] = total;
                 }
             } else if (period === 'month') { 
                 labels = ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4']; 
@@ -817,7 +891,12 @@
                         const d = new Date(s.date);
                         return d >= start && d <= end;
                     });
-                    values[i] = monthSales.reduce((sum, s) => sum + parseFloat(s.total || 0), 0);
+                    let total = 0;
+                    monthSales.forEach(s => {
+                        const val = parseFloat(String(s.total || '0').replace('R$ ', '').replace(',', '.'));
+                        if (!isNaN(val)) total += val;
+                    });
+                    values[i] = total;
                 }
             } else { 
                 labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']; 
@@ -825,7 +904,8 @@
                 sales.forEach(s => {
                     if (!s.date) return;
                     const month = parseInt(s.date.slice(5,7)) - 1;
-                    values[month] += parseFloat(s.total || 0);
+                    const val = parseFloat(String(s.total || '0').replace('R$ ', '').replace(',', '.'));
+                    if (!isNaN(val)) values[month] += val;
                 });
             }
 
@@ -1186,7 +1266,7 @@
         }
 
         // ========================================================================
-        // SALES - CRUD COMPLETO COM ATUALIZAÇÃO AUTOMÁTICA
+        // SALES - CRUD COMPLETO
         // ========================================================================
         function renderSales() {
             const tbody = document.getElementById('salesTableBody');
@@ -1273,7 +1353,7 @@
 
             // Cria transação financeira automaticamente
             const totalValue = parseFloat(total.replace('R$ ', '').replace(',', '.'));
-            if (status === 'Pago' && totalValue > 0) {
+            if (status === 'Pago' && totalValue > 0 && !isNaN(totalValue)) {
                 transactions.push({
                     id: nextId.transaction++,
                     description: 'Venda #' + (editingId || nextId.sale) + ' - ' + client,
@@ -1295,7 +1375,7 @@
             saveData();
             closeModal();
             renderSales();
-            updateAll(); // Atualiza tudo automaticamente
+            updateAll();
         }
 
         function deleteSale(id) {
@@ -1436,11 +1516,16 @@
         }
 
         // ========================================================================
-        // FINANCE - CRUD COMPLETO COM ATUALIZAÇÃO AUTOMÁTICA
+        // FINANCE - CRUD COMPLETO
         // ========================================================================
         function renderFinance() {
-            const totalIncome = transactions.filter(t => t.type === 'income').reduce((s, t) => s + t.amount, 0);
-            const totalExpense = transactions.filter(t => t.type === 'expense').reduce((s, t) => s + t.amount, 0);
+            let totalIncome = 0;
+            let totalExpense = 0;
+            transactions.forEach(t => {
+                const val = parseFloat(t.amount) || 0;
+                if (t.type === 'income') totalIncome += val;
+                else if (t.type === 'expense') totalExpense += val;
+            });
             const balance = totalIncome - totalExpense;
             document.getElementById('financeSummary').innerHTML = `
                 <div class="finance-card"><div class="label">Entradas</div><div class="value positive">R$ ${totalIncome.toFixed(2)}</div></div>
@@ -1786,13 +1871,14 @@
         document.getElementById('appContainer').classList.remove('active');
 
         console.log('🚀 JW TECIDOS ERP PRO - Sistema completo!');
-        console.log('📊 Todas as métricas são atualizadas automaticamente via updateAll()');
+        console.log('📊 Todas as métricas são atualizadas automaticamente');
         console.log('💰 Vendas geram transações financeiras automaticamente');
         console.log('🔄 Atualização automática a cada 3 segundos');
         console.log('🔐 Usuários de teste:');
         console.log('   Admin: admin@jwtecidos.com / admin123');
         console.log('   Vendedor: vendedor@jwtecidos.com / vendedor123');
         console.log('   Gerente: gerente@jwtecidos.com / gerente123');
+        console.log('📦 Dados de exemplo carregados automaticamente!');
     </script>
 </body>
 </html>
