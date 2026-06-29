@@ -28,7 +28,6 @@
             --gray-800: #1e293b;
             --shadow: 0 2px 8px rgba(0,0,0,0.06);
             --shadow-md: 0 4px 16px rgba(0,0,0,0.1);
-            --shadow-lg: 0 8px 32px rgba(0,0,0,0.15);
             --radius: 12px;
             --radius-lg: 20px;
             --radius-xl: 28px;
@@ -37,41 +36,56 @@
 
         /* ===== LOGIN ===== */
         .login-page { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: var(--primary); padding: 20px; }
-        .login-box { background: white; border-radius: var(--radius-xl); padding: 40px; max-width: 420px; width: 100%; box-shadow: var(--shadow-lg); }
+        .login-box { background: white; border-radius: var(--radius-xl); padding: 40px; max-width: 440px; width: 100%; box-shadow: 0 8px 60px rgba(0,0,0,0.3); position: relative; overflow: hidden; }
+        .login-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold)); }
         .login-box .logo-login { text-align: center; margin-bottom: 30px; }
         .login-box .logo-login img { height: 60px; width: 60px; border-radius: 50%; border: 3px solid var(--gold); background: white; padding: 3px; }
         .login-box .logo-login h1 { font-size: 24px; font-weight: 900; color: var(--primary); margin-top: 8px; }
         .login-box .logo-login h1 span { color: var(--gold); }
         .login-box .logo-login p { font-size: 13px; color: var(--gray-400); }
         .login-box .form-group { margin-bottom: 16px; }
-        .login-box .form-group label { display: block; font-weight: 500; font-size: 13px; color: var(--primary); margin-bottom: 4px; }
+        .login-box .form-group label { display: block; font-weight: 600; font-size: 13px; color: var(--primary); margin-bottom: 4px; }
+        .login-box .form-group select { width: 100%; padding: 10px 14px; border: 2px solid var(--gray-200); border-radius: var(--radius); font-size: 14px; font-family: 'Inter', sans-serif; transition: 0.3s; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-size: 12px; cursor: pointer; }
+        .login-box .form-group select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.15); }
         .login-box .form-group input { width: 100%; padding: 10px 14px; border: 2px solid var(--gray-200); border-radius: var(--radius); font-size: 14px; font-family: 'Inter', sans-serif; transition: 0.3s; }
         .login-box .form-group input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.15); }
-        .login-box .btn-login { width: 100%; padding: 12px; background: var(--gold); color: var(--primary); border: none; border-radius: var(--radius); font-size: 16px; font-weight: 700; cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif; }
+        .login-box .form-group .input-icon { position: relative; }
+        .login-box .form-group .input-icon i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--gray-400); }
+        .login-box .form-group .input-icon input { padding-left: 40px; }
+        .login-box .btn-login { width: 100%; padding: 12px; background: var(--gold); color: var(--primary); border: none; border-radius: var(--radius); font-size: 16px; font-weight: 700; cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .login-box .btn-login:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(201,168,76,0.3); }
-        .login-box .login-error { color: var(--danger); font-size: 13px; text-align: center; margin-top: 10px; display: none; }
-        .login-box .login-footer { text-align: center; margin-top: 16px; font-size: 12px; color: var(--gray-400); }
+        .login-box .btn-login:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .login-box .login-error { color: var(--danger); font-size: 13px; text-align: center; margin-top: 10px; display: none; padding: 8px; background: #fee9e9; border-radius: var(--radius); }
+        .login-box .login-error.show { display: block; }
+        .login-box .login-footer { text-align: center; margin-top: 20px; font-size: 12px; color: var(--gray-400); border-top: 1px solid var(--gray-100); padding-top: 20px; }
+        .login-box .login-footer .user-hint { font-size: 11px; color: var(--gray-300); margin-top: 4px; }
+        .login-box .login-footer .user-hint .gold { color: var(--gold); }
+        .login-box .user-info-preview { background: var(--gray-50); border-radius: var(--radius); padding: 12px 16px; margin-bottom: 16px; display: none; align-items: center; gap: 12px; border: 1px solid var(--gray-200); }
+        .login-box .user-info-preview.show { display: flex; }
+        .login-box .user-info-preview .avatar-preview { width: 36px; height: 36px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: var(--primary); flex-shrink: 0; }
+        .login-box .user-info-preview .info-preview .name-preview { font-weight: 600; font-size: 14px; color: var(--primary); }
+        .login-box .user-info-preview .info-preview .role-preview { font-size: 12px; color: var(--gray-400); }
 
         /* ===== APP ===== */
         .app-container { display: none; max-width: 1440px; margin: 0 auto; padding: 12px; }
         .app-container.active { display: block; }
 
-        .header { background: var(--primary); border-radius: var(--radius-lg); padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; position: relative; overflow: hidden; }
-        .header::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold)); opacity: 0.5; }
-        .logo { display: flex; align-items: center; gap: 10px; cursor: pointer; z-index: 1; }
+        .header { background: var(--primary); border-radius: var(--radius-lg); padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .header::after { content: ''; display: block; height: 2px; background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold)); opacity: 0.5; margin-top: 12px; }
+        .logo { display: flex; align-items: center; gap: 10px; cursor: pointer; }
         .logo img { height: 42px; width: 42px; border-radius: 50%; border: 2px solid var(--gold); background: white; padding: 2px; }
         .logo-text .brand { font-size: 20px; font-weight: 900; color: white; }
         .logo-text .brand .gold { color: var(--gold); }
         .logo-text .slogan { font-size: 10px; color: var(--gold-light); letter-spacing: 1px; }
-        .header-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; z-index: 1; }
+        .header-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
-        .btn { padding: 6px 14px; border: none; border-radius: 30px; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 5px; text-decoration: none; }
+        .btn { padding: 6px 14px; border: none; border-radius: 30px; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 5px; }
         .btn-gold { background: var(--gold); color: var(--primary); }
         .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(201,168,76,0.3); }
         .btn-primary { background: rgba(255,255,255,0.12); color: white; border: 1px solid rgba(255,255,255,0.05); }
         .btn-primary:hover { background: rgba(255,255,255,0.2); }
         .btn-success { background: var(--success); color: white; }
-        .btn-success:hover { background: #0b7a32; transform: translateY(-1px); }
+        .btn-success:hover { background: #0b7a32; }
         .btn-danger { background: var(--danger); color: white; }
         .btn-danger:hover { background: #b91c1c; }
         .btn-edit { background: #dbeafe; color: #2563eb; }
@@ -80,7 +94,10 @@
         .btn-delete:hover { background: var(--danger); color: white; }
         .btn-view { background: var(--gray-100); color: var(--gray-600); }
         .btn-view:hover { background: var(--gray-200); }
+        .btn-invoice { background: var(--gold); color: var(--primary); }
+        .btn-invoice:hover { background: #dab95c; }
         .btn-sm { padding: 3px 10px; font-size: 11px; }
+        .btn-disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
         .badge { background: var(--gold); color: var(--primary); padding: 1px 8px; border-radius: 30px; font-size: 10px; font-weight: 700; margin-left: 4px; }
         .user-badge { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.08); padding: 4px 12px 4px 6px; border-radius: 60px; cursor: pointer; border: 1px solid rgba(255,255,255,0.05); }
         .user-badge .avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 11px; color: var(--primary); }
@@ -90,8 +107,8 @@
         .nav { background: white; border-radius: var(--radius); padding: 6px 10px; display: flex; gap: 4px; margin: 12px 0; flex-wrap: wrap; box-shadow: var(--shadow); overflow-x: auto; }
         .nav-item { padding: 7px 14px; border: none; background: none; font-size: 13px; font-weight: 500; color: var(--gray-500); border-radius: 8px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 6px; font-family: 'Inter', sans-serif; white-space: nowrap; }
         .nav-item:hover { background: var(--gray-100); color: var(--gray-800); }
-        .nav-item.active { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(15,26,58,0.2); }
-        .nav-item .badge { margin-left: 2px; }
+        .nav-item.active { background: var(--primary); color: white; }
+        .nav-item.disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
 
         .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 15px; }
         .kpi-card { background: white; border-radius: var(--radius); padding: 14px 18px; box-shadow: var(--shadow); cursor: pointer; border-left: 3px solid var(--gold); transition: 0.3s; }
@@ -122,9 +139,11 @@
         .status.low { background: #fee9e9; color: var(--danger); }
         .status.active { background: #e6f7ef; color: var(--success); }
         .status.inactive { background: #fee9e9; color: var(--danger); }
-        .status.admin { background: var(--gold); color: var(--primary); }
-        .status.manager { background: #dbeafe; color: #2563eb; }
-        .status.seller { background: #fef3c7; color: var(--warning); }
+        .status.open { background: #dbeafe; color: #2563eb; }
+        .status.approved { background: #d1fae5; color: var(--success); }
+        .status.separating { background: #fef3c7; color: var(--warning); }
+        .status.invoiced { background: #e6f7ef; color: var(--success); }
+        .status.canceled { background: #fee9e9; color: var(--danger); }
 
         .empty-state { text-align: center; padding: 20px; color: var(--gray-400); }
         .empty-state i { font-size: 28px; display: block; margin-bottom: 6px; opacity: 0.4; color: var(--gold); }
@@ -138,11 +157,12 @@
         .card-actions { margin-top: 10px; display: flex; gap: 4px; flex-wrap: wrap; }
 
         .table-container { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 500px; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 700px; }
         table th { text-align: left; padding: 10px 8px; background: var(--gray-50); font-weight: 600; border-bottom: 2px solid var(--gold); color: var(--primary); }
         table td { padding: 8px; border-bottom: 1px solid var(--gray-100); vertical-align: middle; }
         table tr:hover { background: var(--gray-50); }
-        .actions-cell { display: flex; gap: 3px; flex-wrap: wrap; }
+        .link-badge { background: rgba(201,168,76,0.15); color: var(--gold); padding: 1px 8px; border-radius: 30px; font-size: 10px; font-weight: 600; cursor: pointer; }
+        .link-badge:hover { background: var(--gold); color: var(--primary); }
 
         .finance-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 15px; }
         .finance-card { background: var(--gray-50); border-radius: var(--radius); padding: 12px; text-align: center; border: 1px solid var(--gray-200); }
@@ -167,7 +187,7 @@
 
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 1000; justify-content: center; align-items: center; padding: 15px; }
         .modal-overlay.active { display: flex; }
-        .modal { background: white; border-radius: var(--radius-lg); max-width: 520px; width: 100%; padding: 24px; max-height: 90vh; overflow-y: auto; animation: modalIn 0.3s ease; }
+        .modal { background: white; border-radius: var(--radius-lg); max-width: 620px; width: 100%; padding: 24px; max-height: 90vh; overflow-y: auto; animation: modalIn 0.3s ease; }
         @keyframes modalIn { from { transform: scale(0.9) translateY(20px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
         .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold); padding-bottom: 10px; margin-bottom: 15px; }
         .modal-header h2 { font-size: 18px; color: var(--primary); }
@@ -178,7 +198,7 @@
         .form-group label { display: block; font-weight: 500; font-size: 13px; color: var(--primary); margin-bottom: 3px; }
         .form-group label .required { color: var(--gold); margin-left: 2px; }
         .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 8px 12px; border: 2px solid var(--gray-200); border-radius: 8px; font-size: 13px; font-family: 'Inter', sans-serif; transition: 0.3s; background: white; }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.1); }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--gold); }
         .modal-actions { display: flex; gap: 8px; margin-top: 15px; flex-wrap: wrap; border-top: 1px solid var(--gray-100); padding-top: 15px; }
 
         .toast { position: fixed; bottom: 20px; right: 20px; background: var(--primary); color: white; padding: 12px 20px; border-radius: var(--radius); font-weight: 500; font-size: 13px; box-shadow: 0 8px 30px rgba(0,0,0,0.2); display: none; z-index: 2000; max-width: 400px; border-left: 4px solid var(--gold); }
@@ -191,9 +211,9 @@
 
         .hidden { display: none !important; }
 
-        .permissions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px; max-height: 200px; overflow-y: auto; padding: 8px; background: var(--gray-50); border-radius: 8px; border: 1px solid var(--gray-200); }
-        .perm-item { display: flex; align-items: center; gap: 6px; font-size: 12px; }
-        .perm-item input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--gold); cursor: pointer; }
+        /* Badge de permissão negada */
+        .permission-denied { opacity: 0.6; position: relative; }
+        .permission-denied::after { content: '🔒'; position: absolute; top: -8px; right: -8px; font-size: 14px; }
 
         @media (max-width: 1024px) { .main-grid { grid-template-columns: 1fr; } }
         @media (max-width: 768px) {
@@ -203,7 +223,6 @@
             .bottom-grid { grid-template-columns: 1fr; }
             .nav { gap: 2px; padding: 4px 6px; }
             .nav-item { font-size: 12px; padding: 5px 10px; }
-            .products-grid, .suppliers-grid, .clients-grid, .users-grid { grid-template-columns: 1fr 1fr; }
             .login-box { padding: 24px; margin: 10px; }
         }
         @media (max-width: 480px) {
@@ -224,21 +243,47 @@
                 <h1>JW <span>TECIDOS</span></h1>
                 <p>Sistema ERP - Qualidade, Variedade e Confiança</p>
             </div>
+            
             <form id="loginForm" onsubmit="login(event)">
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="loginEmail" placeholder="seu@email.com" value="admin@jwtecidos.com" required>
+                    <label><i class="fas fa-user"></i> Usuário</label>
+                    <select id="loginUserSelect" required onchange="updateUserPreview()">
+                        <option value="">Selecione um usuário</option>
+                    </select>
                 </div>
+                
+                <div class="user-info-preview" id="userPreview">
+                    <div class="avatar-preview" id="previewAvatar">U</div>
+                    <div class="info-preview">
+                        <div class="name-preview" id="previewName">Nome do Usuário</div>
+                        <div class="role-preview" id="previewRole">Função</div>
+                    </div>
+                </div>
+                
                 <div class="form-group">
-                    <label>Senha</label>
-                    <input type="password" id="loginPassword" placeholder="••••••••" value="admin123" required>
+                    <label><i class="fas fa-lock"></i> Senha</label>
+                    <div class="input-icon">
+                        <i class="fas fa-key"></i>
+                        <input type="password" id="loginPassword" placeholder="Digite sua senha" required>
+                    </div>
                 </div>
-                <button type="submit" class="btn-login"><i class="fas fa-sign-in-alt"></i> Entrar</button>
-                <div class="login-error" id="loginError">❌ Email ou senha inválidos</div>
+                
+                <button type="submit" class="btn-login" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i> Entrar
+                </button>
+                
+                <div class="login-error" id="loginError">❌ Usuário ou senha inválidos</div>
             </form>
+            
             <div class="login-footer">
                 <p>JW TECIDOS © 2026</p>
-                <p style="font-size:10px;color:var(--gray-300);margin-top:4px;">admin@jwtecidos.com / admin123</p>
+                <div class="user-hint">
+                    <span class="gold">Admin:</span> admin@jwtecidos.com 
+                    <span style="color:var(--gray-300);margin:0 4px;">•</span>
+                    <span class="gold">Vendedor:</span> vendedor@jwtecidos.com 
+                    <span style="color:var(--gray-300);margin:0 4px;">•</span>
+                    <span class="gold">Gerente:</span> gerente@jwtecidos.com
+                </div>
             </div>
         </div>
     </div>
@@ -275,8 +320,8 @@
                 <button class="nav-item active" onclick="navigateTo(this,'dashboard')"><i class="fas fa-home"></i> Dashboard</button>
                 <button class="nav-item" onclick="navigateTo(this,'products')"><i class="fas fa-box"></i> Produtos</button>
                 <button class="nav-item" onclick="navigateTo(this,'suppliers')"><i class="fas fa-truck"></i> Fornecedores</button>
-                <button class="nav-item" onclick="navigateTo(this,'sales')"><i class="fas fa-cash-register"></i> Vendas</button>
                 <button class="nav-item" onclick="navigateTo(this,'orders')"><i class="fas fa-shopping-cart"></i> Pedidos <span class="badge" id="ordersBadge">0</span></button>
+                <button class="nav-item" onclick="navigateTo(this,'sales')"><i class="fas fa-cash-register"></i> Vendas <span class="badge" id="salesBadge">0</span></button>
                 <button class="nav-item" onclick="navigateTo(this,'clients')"><i class="fas fa-users"></i> Clientes</button>
                 <button class="nav-item" onclick="navigateTo(this,'finance')"><i class="fas fa-coins"></i> Financeiro</button>
                 <button class="nav-item" onclick="navigateTo(this,'users')" id="usersNav"><i class="fas fa-user-shield"></i> Usuários <span class="badge" id="usersBadge">0</span></button>
@@ -290,15 +335,15 @@
                         <div class="kpi-value" id="revenueValue">R$ 0,00</div>
                         <span class="kpi-change empty" id="revenueChange">Aguardando</span>
                     </div>
+                    <div class="kpi-card" onclick="showToast('📊 Pedidos Hoje')">
+                        <div class="kpi-label"><i class="fas fa-shopping-cart"></i> Pedidos Hoje</div>
+                        <div class="kpi-value" id="ordersCountValue">0</div>
+                        <span class="kpi-change empty" id="ordersCountChange">Aguardando</span>
+                    </div>
                     <div class="kpi-card" onclick="showToast('📊 Vendas Hoje')">
                         <div class="kpi-label"><i class="fas fa-cash-register"></i> Vendas Hoje</div>
-                        <div class="kpi-value" id="salesValue">0</div>
-                        <span class="kpi-change empty" id="salesChange">Aguardando</span>
-                    </div>
-                    <div class="kpi-card" onclick="showToast('📊 Clientes Ativos')">
-                        <div class="kpi-label"><i class="fas fa-users"></i> Clientes Ativos</div>
-                        <div class="kpi-value" id="clientsValue">0</div>
-                        <span class="kpi-change empty" id="clientsChange">Aguardando</span>
+                        <div class="kpi-value" id="salesCountValue">0</div>
+                        <span class="kpi-change empty" id="salesCountChange">Aguardando</span>
                     </div>
                     <div class="kpi-card" onclick="showToast('📊 Lucro Hoje')">
                         <div class="kpi-label"><i class="fas fa-wallet"></i> Lucro Hoje</div>
@@ -329,8 +374,8 @@
                             <div id="lowStockList"><div class="empty-state"><i class="fas fa-check-circle"></i><p>Nenhum</p></div></div>
                         </div>
                         <div class="side-card">
-                            <div class="card-header"><h3><i class="fas fa-truck"></i> Últimas Vendas</h3></div>
-                            <div id="recentSales"><div class="empty-state"><i class="fas fa-inbox"></i><p>Nenhuma venda</p></div></div>
+                            <div class="card-header"><h3><i class="fas fa-truck"></i> Últimos Pedidos</h3></div>
+                            <div id="recentOrders"><div class="empty-state"><i class="fas fa-inbox"></i><p>Nenhum pedido</p></div></div>
                         </div>
                     </div>
                 </div>
@@ -343,7 +388,7 @@
                         <div style="display:flex;justify-content:space-between;padding:6px 0;"><span style="font-weight:600;">Saldo</span><span style="color:var(--gold);font-weight:700;font-size:16px;" id="cashBalance">R$ 0,00</span></div>
                     </div>
                     <div class="card">
-                        <div class="card-header"><h3><i class="fas fa-crown" style="color:#fbbf24;"></i> Mais Vendidos</h3></div>
+                        <div class="card-header"><h3><i class="fas fa-crown" style="color:#fbbf24;"></i> Produtos Mais Vendidos</h3></div>
                         <div id="topProducts"><div class="empty-state"><i class="fas fa-chart-simple"></i><p>Sem dados</p></div></div>
                     </div>
                 </div>
@@ -357,7 +402,11 @@
             <!-- PRODUCTS -->
             <div id="productsView" class="hidden">
                 <div class="card">
-                    <div class="card-header"><h3><i class="fas fa-box"></i> Produtos</h3><button class="btn btn-gold" onclick="openProductForm()"><i class="fas fa-plus"></i> Novo Produto</button></div>
+                    <div class="card-header"><h3><i class="fas fa-box"></i> Produtos</h3>
+                        <div class="actions">
+                            <button class="btn btn-gold" onclick="openProductForm()" id="btnNewProduct"><i class="fas fa-plus"></i> Novo Produto</button>
+                        </div>
+                    </div>
                     <div class="products-grid" id="productsGrid"></div>
                 </div>
             </div>
@@ -365,31 +414,79 @@
             <!-- SUPPLIERS -->
             <div id="suppliersView" class="hidden">
                 <div class="card">
-                    <div class="card-header"><h3><i class="fas fa-truck"></i> Fornecedores</h3><button class="btn btn-gold" onclick="openSupplierForm()"><i class="fas fa-plus"></i> Novo Fornecedor</button></div>
+                    <div class="card-header"><h3><i class="fas fa-truck"></i> Fornecedores</h3>
+                        <div class="actions">
+                            <button class="btn btn-gold" onclick="openSupplierForm()" id="btnNewSupplier"><i class="fas fa-plus"></i> Novo Fornecedor</button>
+                        </div>
+                    </div>
                     <div class="suppliers-grid" id="suppliersGrid"></div>
-                </div>
-            </div>
-
-            <!-- SALES -->
-            <div id="salesView" class="hidden">
-                <div class="card">
-                    <div class="card-header"><h3><i class="fas fa-cash-register"></i> Vendas</h3><button class="btn btn-gold" onclick="openSaleForm()"><i class="fas fa-plus"></i> Nova Venda</button></div>
-                    <div class="table-container"><table><thead><tr><th>#</th><th>Cliente</th><th>Produto</th><th>Qtd</th><th>Total</th><th>Status</th><th>Ações</th></tr></thead><tbody id="salesTableBody"></tbody></table></div>
                 </div>
             </div>
 
             <!-- ORDERS -->
             <div id="ordersView" class="hidden">
                 <div class="card">
-                    <div class="card-header"><h3><i class="fas fa-shopping-cart"></i> Pedidos</h3><button class="btn btn-gold" onclick="openOrderForm()"><i class="fas fa-plus"></i> Novo Pedido</button></div>
-                    <div class="table-container"><table><thead><tr><th>ID</th><th>Cliente</th><th>Total</th><th>Itens</th><th>Status</th><th>Ações</th></tr></thead><tbody id="ordersTableBody"></tbody></table></div>
+                    <div class="card-header">
+                        <h3><i class="fas fa-shopping-cart"></i> Pedidos</h3>
+                        <div class="actions">
+                            <button class="btn btn-gold" onclick="openOrderForm()" id="btnNewOrder"><i class="fas fa-plus"></i> Novo Pedido</button>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Pedido</th>
+                                    <th>Cliente</th>
+                                    <th>Produtos</th>
+                                    <th>Total</th>
+                                    <th>Vendedor</th>
+                                    <th>Status</th>
+                                    <th>Venda</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SALES -->
+            <div id="salesView" class="hidden">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-cash-register"></i> Vendas</h3>
+                        <div class="actions">
+                            <span style="font-size:11px;color:var(--gray-400);">Vendas geradas a partir de pedidos faturados</span>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Venda</th>
+                                    <th>Pedido</th>
+                                    <th>Cliente</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="salesTableBody"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
             <!-- CLIENTS -->
             <div id="clientsView" class="hidden">
                 <div class="card">
-                    <div class="card-header"><h3><i class="fas fa-users"></i> Clientes</h3><button class="btn btn-gold" onclick="openClientForm()"><i class="fas fa-plus"></i> Novo Cliente</button></div>
+                    <div class="card-header"><h3><i class="fas fa-users"></i> Clientes</h3>
+                        <div class="actions">
+                            <button class="btn btn-gold" onclick="openClientForm()" id="btnNewClient"><i class="fas fa-plus"></i> Novo Cliente</button>
+                        </div>
+                    </div>
                     <div class="clients-grid" id="clientsGrid"></div>
                 </div>
             </div>
@@ -397,7 +494,11 @@
             <!-- FINANCE -->
             <div id="financeView" class="hidden">
                 <div class="card">
-                    <div class="card-header"><h3><i class="fas fa-coins"></i> Financeiro</h3><button class="btn btn-gold" onclick="openTransactionForm()"><i class="fas fa-plus"></i> Nova Transação</button></div>
+                    <div class="card-header"><h3><i class="fas fa-coins"></i> Financeiro</h3>
+                        <div class="actions">
+                            <button class="btn btn-gold" onclick="openTransactionForm()" id="btnNewTransaction"><i class="fas fa-plus"></i> Nova Transação</button>
+                        </div>
+                    </div>
                     <div class="finance-summary" id="financeSummary"></div>
                     <div class="card-header"><h3><i class="fas fa-list"></i> Transações</h3>
                         <div><button class="btn btn-primary btn-sm" onclick="filterTransactions('all')">Todas</button>
@@ -413,7 +514,7 @@
                 <div class="card">
                     <div class="card-header"><h3><i class="fas fa-user-shield"></i> Usuários</h3>
                         <div class="actions">
-                            <button class="btn btn-gold" onclick="openUserForm()"><i class="fas fa-plus"></i> Novo Usuário</button>
+                            <button class="btn btn-gold" onclick="openUserForm()" id="btnNewUser"><i class="fas fa-plus"></i> Novo Usuário</button>
                         </div>
                     </div>
                     <div class="users-grid" id="usersGrid"></div>
@@ -436,7 +537,110 @@
 
     <script>
         // ========================================================================
-        // DATA - INICIALIZAÇÃO COM DADOS DE EXEMPLO
+        // USUÁRIOS PRÉ-CADASTRADOS COM PERMISSÕES
+        // ========================================================================
+        const USERS = [
+            { 
+                id: 1, 
+                name: 'Administrador', 
+                email: 'admin@jwtecidos.com', 
+                password: 'admin123', 
+                role: 'Administrador',
+                permissions: ['all'] // Acesso total
+            },
+            { 
+                id: 2, 
+                name: 'João Vendedor', 
+                email: 'vendedor@jwtecidos.com', 
+                password: 'vendedor123', 
+                role: 'Vendedor',
+                permissions: ['view_dashboard', 'view_products', 'view_clients', 'create_sales', 'view_sales']
+            },
+            { 
+                id: 3, 
+                name: 'Maria Gerente', 
+                email: 'gerente@jwtecidos.com', 
+                password: 'gerente123', 
+                role: 'Gerente',
+                permissions: ['view_dashboard', 'view_products', 'view_suppliers', 'view_orders', 'view_sales', 'view_clients', 'view_finance', 'create_orders', 'create_sales', 'invoice_orders']
+            }
+        ];
+
+        // ========================================================================
+        // SISTEMA DE PERMISSÕES
+        // ========================================================================
+        const PERMISSIONS = {
+            // Dashboard
+            view_dashboard: 'Visualizar Dashboard',
+            
+            // Produtos
+            view_products: 'Visualizar Produtos',
+            create_products: 'Criar Produtos',
+            edit_products: 'Editar Produtos',
+            delete_products: 'Excluir Produtos',
+            
+            // Fornecedores
+            view_suppliers: 'Visualizar Fornecedores',
+            create_suppliers: 'Criar Fornecedores',
+            edit_suppliers: 'Editar Fornecedores',
+            delete_suppliers: 'Excluir Fornecedores',
+            
+            // Pedidos
+            view_orders: 'Visualizar Pedidos',
+            create_orders: 'Criar Pedidos',
+            edit_orders: 'Editar Pedidos',
+            delete_orders: 'Excluir Pedidos',
+            invoice_orders: 'Faturar Pedidos',
+            
+            // Vendas
+            view_sales: 'Visualizar Vendas',
+            create_sales: 'Criar Vendas',
+            edit_sales: 'Editar Vendas',
+            delete_sales: 'Excluir Vendas',
+            
+            // Clientes
+            view_clients: 'Visualizar Clientes',
+            create_clients: 'Criar Clientes',
+            edit_clients: 'Editar Clientes',
+            delete_clients: 'Excluir Clientes',
+            
+            // Financeiro
+            view_finance: 'Visualizar Financeiro',
+            create_transactions: 'Criar Transações',
+            edit_transactions: 'Editar Transações',
+            delete_transactions: 'Excluir Transações',
+            
+            // Usuários
+            view_users: 'Visualizar Usuários',
+            create_users: 'Criar Usuários',
+            edit_users: 'Editar Usuários',
+            delete_users: 'Excluir Usuários',
+            
+            // Exportar/Importar
+            export_data: 'Exportar Dados',
+            import_data: 'Importar Dados'
+        };
+
+        function hasPermission(permission) {
+            if (!currentUser) return false;
+            if (currentUser.permissions && currentUser.permissions.includes('all')) return true;
+            return currentUser.permissions && currentUser.permissions.includes(permission);
+        }
+
+        function isAdmin() {
+            return currentUser && (currentUser.role === 'Administrador' || (currentUser.permissions && currentUser.permissions.includes('all')));
+        }
+
+        function checkPermissionAndExecute(permission, callback, errorMsg) {
+            if (hasPermission(permission)) {
+                callback();
+            } else {
+                showToast('🔒 Você não tem permissão para ' + (errorMsg || 'realizar esta ação'), 'warning');
+            }
+        }
+
+        // ========================================================================
+        // DATA - INICIALIZAÇÃO
         // ========================================================================
         let products = [];
         let suppliers = [];
@@ -444,99 +648,150 @@
         let transactions = [];
         let orders = [];
         let sales = [];
-        let users = [
-            { id: 1, name: 'Administrador', email: 'admin@jwtecidos.com', password: 'admin123', role: 'Administrador', permissions: ['all'] },
-            { id: 2, name: 'João Vendedor', email: 'vendedor@jwtecidos.com', password: 'vendedor123', role: 'Vendedor', permissions: ['Ver Dashboard','Fazer Venda','Consultar Estoque','Cadastrar Cliente','Editar Cliente','Ver Estoque'] },
-            { id: 3, name: 'Maria Gerente', email: 'gerente@jwtecidos.com', password: 'gerente123', role: 'Gerente', permissions: ['Ver Dashboard','Fazer Venda','Ver Estoque','Cadastrar Produto','Editar Produto','Cadastrar Cliente','Editar Cliente','Ver Financeiro','Ver Relatórios','Aprovar Descontos'] }
-        ];
+        let users = [];
         let nextId = { product: 1, supplier: 1, client: 1, transaction: 1, order: 1, sale: 1, user: 4 };
         let chartInstance = null;
         let currentPeriod = 'week';
+        let currentUser = null;
+        let autoUpdateInterval = null;
         let editingId = null;
         let editingType = null;
         let transactionFilter = 'all';
-        let currentUser = null;
-        let autoUpdateInterval = null;
 
         // ========================================================================
-        // FUNÇÃO PARA ADICIONAR DADOS DE EXEMPLO
+        // DADOS INICIAIS DE EXEMPLO
         // ========================================================================
-        function addSampleData() {
-            if (products.length === 0) {
-                products = [
-                    { id: 1, name: 'Tecido Xadrez Vermelho', price: 'R$ 49,90', stock: '45m', category: 'Xadrez', supplier: 'Tecidos Brasil' },
-                    { id: 2, name: 'Oxford Branco Premium', price: 'R$ 65,00', stock: '32m', category: 'Oxford', supplier: 'Oxford Premium' },
-                    { id: 3, name: 'Tricoline Floral Verão', price: 'R$ 38,50', stock: '28m', category: 'Tricoline', supplier: 'Estampas Fine' },
-                    { id: 4, name: 'Linho Bege Natural', price: 'R$ 72,00', stock: '8m', category: 'Linho', supplier: 'Linho Nobre' }
-                ];
-                nextId.product = 5;
-            }
-            if (clients.length === 0) {
-                clients = [
-                    { id: 1, name: 'Maria Silva', email: 'maria@email.com', phone: '(11) 91234-5678', address: 'Rua das Flores, 123', status: 'Ativo' },
-                    { id: 2, name: 'João Santos', email: 'joao@email.com', phone: '(11) 98765-4321', address: 'Av. Principal, 456', status: 'Ativo' },
-                    { id: 3, name: 'Ana Oliveira', email: 'ana@email.com', phone: '(11) 95678-9012', address: 'Rua dos Pinheiros, 789', status: 'Ativo' }
-                ];
-                nextId.client = 4;
-            }
-            if (suppliers.length === 0) {
-                suppliers = [
-                    { id: 1, name: 'Tecidos Brasil', contact: 'contato@tecidosbrasil.com', phone: '(11) 3456-7890', productTypes: ['Xadrez', 'Cetim', 'Tricoline'] },
-                    { id: 2, name: 'Oxford Premium', contact: 'vendas@oxfordpremium.com', phone: '(11) 9876-5432', productTypes: ['Oxford'] },
-                    { id: 3, name: 'Estampas Fine', contact: 'info@estampasfine.com', phone: '(11) 4567-8901', productTypes: ['Tricoline'] }
-                ];
-                nextId.supplier = 4;
-            }
-            if (sales.length === 0) {
-                const hoje = new Date().toISOString().slice(0,10);
-                sales = [
-                    { id: 1, client: 'Maria Silva', product: 'Tecido Xadrez Vermelho', quantity: 2, unitPrice: 'R$ 49,90', total: 'R$ 99,80', status: 'Pago', date: hoje + ' 10:30' },
-                    { id: 2, client: 'João Santos', product: 'Oxford Branco Premium', quantity: 1, unitPrice: 'R$ 65,00', total: 'R$ 65,00', status: 'Pago', date: hoje + ' 09:15' },
-                    { id: 3, client: 'Ana Oliveira', product: 'Tricoline Floral Verão', quantity: 3, unitPrice: 'R$ 38,50', total: 'R$ 115,50', status: 'Pago', date: hoje + ' 08:45' }
-                ];
-                nextId.sale = 4;
-                
-                // Adiciona transações financeiras automaticamente
-                sales.forEach(s => {
-                    const totalVal = parseFloat(s.total.replace('R$ ', '').replace(',', '.'));
-                    transactions.push({
-                        id: nextId.transaction++,
-                        description: 'Venda #' + s.id + ' - ' + s.client,
-                        amount: totalVal,
-                        type: 'income',
-                        date: s.date,
-                        category: 'Vendas'
-                    });
-                });
-            }
+        function initSampleData() {
+            users = JSON.parse(JSON.stringify(USERS));
+            nextId.user = 4;
+
+            products = [
+                { id: 1, name: 'Tecido Xadrez Vermelho', price: 'R$ 49,90', stock: '45m', category: 'Xadrez', supplier: 'Tecidos Brasil' },
+                { id: 2, name: 'Oxford Branco Premium', price: 'R$ 65,00', stock: '32m', category: 'Oxford', supplier: 'Oxford Premium' },
+                { id: 3, name: 'Tricoline Floral Verão', price: 'R$ 38,50', stock: '28m', category: 'Tricoline', supplier: 'Estampas Fine' },
+                { id: 4, name: 'Linho Bege Natural', price: 'R$ 72,00', stock: '8m', category: 'Linho', supplier: 'Linho Nobre' }
+            ];
+            nextId.product = 5;
+
+            clients = [
+                { id: 1, name: 'Maria Silva', email: 'maria@email.com', phone: '(11) 91234-5678', address: 'Rua das Flores, 123', status: 'Ativo' },
+                { id: 2, name: 'João Santos', email: 'joao@email.com', phone: '(11) 98765-4321', address: 'Av. Principal, 456', status: 'Ativo' },
+                { id: 3, name: 'Ana Oliveira', email: 'ana@email.com', phone: '(11) 95678-9012', address: 'Rua dos Pinheiros, 789', status: 'Ativo' }
+            ];
+            nextId.client = 4;
+
+            suppliers = [
+                { id: 1, name: 'Tecidos Brasil', contact: 'contato@tecidosbrasil.com', phone: '(11) 3456-7890', productTypes: ['Xadrez', 'Cetim', 'Tricoline'] },
+                { id: 2, name: 'Oxford Premium', contact: 'vendas@oxfordpremium.com', phone: '(11) 9876-5432', productTypes: ['Oxford'] },
+                { id: 3, name: 'Estampas Fine', contact: 'info@estampasfine.com', phone: '(11) 4567-8901', productTypes: ['Tricoline'] }
+            ];
+            nextId.supplier = 4;
+
+            const hoje = new Date().toISOString().slice(0,10);
+            orders = [
+                { id: 'PED-001', client: 'Maria Silva', products: [{name: 'Tecido Xadrez Vermelho', qty: 2, price: 49.90}], total: 99.80, seller: 'João Vendedor', status: 'Aberto', date: hoje, discount: 0, freight: 0 },
+                { id: 'PED-002', client: 'João Santos', products: [{name: 'Oxford Branco Premium', qty: 1, price: 65.00}], total: 65.00, seller: 'João Vendedor', status: 'Aprovado', date: hoje, discount: 0, freight: 0 },
+                { id: 'PED-003', client: 'Ana Oliveira', products: [{name: 'Tricoline Floral Verão', qty: 3, price: 38.50}], total: 115.50, seller: 'Maria Gerente', status: 'Faturado', date: hoje, discount: 0, freight: 0 }
+            ];
+            nextId.order = 4;
+
+            sales = [
+                { id: 'VEN-001', order_id: 'PED-003', client: 'Ana Oliveira', total: 115.50, status: 'Pago', date: hoje + ' 10:30', payment_method: 'PIX', products: [{name: 'Tricoline Floral Verão', qty: 3, price: 38.50}] }
+            ];
+            nextId.sale = 2;
+
+            transactions = [
+                { id: 1, description: 'Venda VEN-001 - Ana Oliveira', amount: 115.50, type: 'income', date: hoje + ' 10:30', category: 'Vendas' }
+            ];
+            nextId.transaction = 2;
+
             saveData();
-            renderAll();
+            populateUserSelect();
         }
 
         // ========================================================================
-        // AUTH
+        // LOGIN
         // ========================================================================
+        function populateUserSelect() {
+            const select = document.getElementById('loginUserSelect');
+            if (!select) return;
+            const userList = users.length > 0 ? users : USERS;
+            select.innerHTML = '<option value="">Selecione um usuário</option>';
+            userList.forEach(u => {
+                const option = document.createElement('option');
+                option.value = u.email;
+                option.textContent = u.name + ' (' + u.role + ')';
+                select.appendChild(option);
+            });
+        }
+
+        function updateUserPreview() {
+            const select = document.getElementById('loginUserSelect');
+            const email = select ? select.value : '';
+            const preview = document.getElementById('userPreview');
+            const avatar = document.getElementById('previewAvatar');
+            const nameEl = document.getElementById('previewName');
+            const roleEl = document.getElementById('previewRole');
+            const userList = users.length > 0 ? users : USERS;
+            
+            if (email) {
+                const user = userList.find(u => u.email === email);
+                if (user) {
+                    preview.classList.add('show');
+                    avatar.textContent = user.name.charAt(0).toUpperCase();
+                    nameEl.textContent = user.name;
+                    roleEl.textContent = user.role;
+                }
+            } else {
+                preview.classList.remove('show');
+            }
+        }
+
         function login(e) {
             e.preventDefault();
-            const email = document.getElementById('loginEmail').value.trim();
+            const select = document.getElementById('loginUserSelect');
+            const email = select ? select.value : '';
             const password = document.getElementById('loginPassword').value.trim();
             const errorEl = document.getElementById('loginError');
+            const btn = document.getElementById('loginBtn');
             
-            const user = users.find(u => u.email === email && u.password === password);
-            if (user) {
-                currentUser = user;
-                errorEl.style.display = 'none';
-                document.getElementById('loginPage').style.display = 'none';
-                document.getElementById('appContainer').classList.add('active');
-                updateUserDisplay();
-                loadData();
-                showToast('✅ Bem-vindo, ' + user.name + '!', 'success');
-                checkPermissions();
-                startAutoUpdate();
-            } else {
-                errorEl.style.display = 'block';
-                showToast('❌ Email ou senha inválidos', 'error');
+            if (!email) {
+                errorEl.textContent = '❌ Selecione um usuário';
+                errorEl.classList.add('show');
+                return;
             }
+            if (!password) {
+                errorEl.textContent = '❌ Digite sua senha';
+                errorEl.classList.add('show');
+                return;
+            }
+            
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entrando...';
+            
+            const userList = users.length > 0 ? users : USERS;
+            const user = userList.find(u => u.email === email && u.password === password);
+            
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Entrar';
+                if (user) {
+                    currentUser = user;
+                    errorEl.classList.remove('show');
+                    document.getElementById('loginPage').style.display = 'none';
+                    document.getElementById('appContainer').classList.add('active');
+                    updateUserDisplay();
+                    loadData();
+                    applyPermissions();
+                    showToast('✅ Bem-vindo, ' + user.name + '!', 'success');
+                    startAutoUpdate();
+                } else {
+                    errorEl.textContent = '❌ Senha incorreta. Tente novamente.';
+                    errorEl.classList.add('show');
+                    document.getElementById('loginPassword').value = '';
+                    document.getElementById('loginPassword').focus();
+                }
+            }, 500);
         }
 
         function logout() {
@@ -545,6 +800,9 @@
                 currentUser = null;
                 document.getElementById('appContainer').classList.remove('active');
                 document.getElementById('loginPage').style.display = 'flex';
+                document.getElementById('loginPassword').value = '';
+                document.getElementById('loginUserSelect').value = '';
+                document.getElementById('userPreview').classList.remove('show');
                 showToast('👋 Até logo!', 'success');
             }
         }
@@ -557,80 +815,35 @@
             }
         }
 
-        function checkPermissions() {
-            if (!currentUser) return;
-            const isAdminUser = currentUser.role === 'Administrador' || (currentUser.permissions && currentUser.permissions.includes('all'));
+        // ========================================================================
+        // APLICAR PERMISSÕES - OCULTAR/MOSTRAR BOTÕES E MENUS
+        // ========================================================================
+        function applyPermissions() {
+            const isAdminUser = isAdmin();
+            
+            // Menu Usuários - apenas admin
             const usersNav = document.getElementById('usersNav');
             if (isAdminUser) {
                 usersNav.style.display = 'flex';
             } else {
                 usersNav.style.display = 'none';
             }
-        }
 
-        function hasPermission(permission) {
-            if (!currentUser) return false;
-            if (currentUser.role === 'Administrador') return true;
-            if (currentUser.permissions && currentUser.permissions.includes('all')) return true;
-            return currentUser.permissions && currentUser.permissions.includes(permission);
-        }
+            // Botões de criação
+            document.getElementById('btnNewProduct').style.display = hasPermission('create_products') ? 'inline-flex' : 'none';
+            document.getElementById('btnNewSupplier').style.display = hasPermission('create_suppliers') ? 'inline-flex' : 'none';
+            document.getElementById('btnNewOrder').style.display = hasPermission('create_orders') ? 'inline-flex' : 'none';
+            document.getElementById('btnNewClient').style.display = hasPermission('create_clients') ? 'inline-flex' : 'none';
+            document.getElementById('btnNewTransaction').style.display = hasPermission('create_transactions') ? 'inline-flex' : 'none';
+            document.getElementById('btnNewUser').style.display = hasPermission('create_users') ? 'inline-flex' : 'none';
 
-        function isAdmin() {
-            return currentUser && (currentUser.role === 'Administrador' || (currentUser.permissions && currentUser.permissions.includes('all')));
-        }
-
-        // ========================================================================
-        // CORE DE ATUALIZAÇÃO RECORRENTE
-        // ========================================================================
-        function startAutoUpdate() {
-            if (autoUpdateInterval) clearInterval(autoUpdateInterval);
-            autoUpdateInterval = setInterval(() => {
-                updateAll();
-            }, 3000);
-        }
-
-        function stopAutoUpdate() {
-            if (autoUpdateInterval) {
-                clearInterval(autoUpdateInterval);
-                autoUpdateInterval = null;
-            }
-        }
-
-        // ========================================================================
-        // UPDATE ALL - FUNÇÃO PRINCIPAL DE ATUALIZAÇÃO
-        // ========================================================================
-        function updateAll() {
-            // 1. Recalcula e atualiza os cards de KPI
-            updateDashboard(); 
-            
-            // 2. Mantém o gráfico atualizado
-            if (typeof currentPeriod !== 'undefined') {
-                updateChart(currentPeriod);
-            } else {
-                updateChart('week');
-            }
-            
-            // 3. Atualiza as notificações/badges
-            if (typeof updateBadges === 'function') {
-                updateBadges();
-            }
-            
-            // 4. Atualiza módulos específicos se estiverem visíveis
-            if (!document.getElementById('financeView').classList.contains('hidden')) {
-                renderFinance();
-            }
-            if (!document.getElementById('salesView').classList.contains('hidden')) {
-                renderSales();
-            }
-            if (!document.getElementById('productsView').classList.contains('hidden')) {
-                renderProducts();
-            }
-            if (!document.getElementById('clientsView').classList.contains('hidden')) {
-                renderClients();
-            }
-            if (!document.getElementById('ordersView').classList.contains('hidden')) {
-                renderOrders();
-            }
+            // Botões de exportar/importar
+            document.querySelectorAll('[onclick="exportData()"]').forEach(el => {
+                el.style.display = hasPermission('export_data') ? 'inline-flex' : 'none';
+            });
+            document.querySelectorAll('[onclick="importData()"]').forEach(el => {
+                el.style.display = hasPermission('import_data') ? 'inline-flex' : 'none';
+            });
         }
 
         // ========================================================================
@@ -647,18 +860,23 @@
                     transactions = d.transactions || [];
                     orders = d.orders || [];
                     sales = d.sales || [];
-                    users = d.users || [
-                        { id: 1, name: 'Administrador', email: 'admin@jwtecidos.com', password: 'admin123', role: 'Administrador', permissions: ['all'] }
-                    ];
-                    nextId = d.nextId || { product: 1, supplier: 1, client: 1, transaction: 1, order: 1, sale: 1, user: 2 };
+                    users = d.users || [];
+                    nextId = d.nextId || { product: 1, supplier: 1, client: 1, transaction: 1, order: 1, sale: 1, user: 1 };
                 }
             } catch (e) { console.error('Erro ao carregar:', e); }
-            // Se não houver dados, adiciona dados de exemplo
-            if (products.length === 0 && sales.length === 0) {
-                addSampleData();
-            } else {
-                renderAll();
+            
+            if (users.length === 0) {
+                users = JSON.parse(JSON.stringify(USERS));
+                nextId.user = 4;
             }
+            
+            if (products.length === 0 && orders.length === 0) {
+                initSampleData();
+            } else {
+                populateUserSelect();
+            }
+            renderAll();
+            applyPermissions();
         }
 
         function saveData() {
@@ -671,11 +889,11 @@
             } catch (e) { showToast('❌ Erro ao salvar', 'error'); }
         }
 
-        // ========================================================================
-        // EXPORT / IMPORT
-        // ========================================================================
         function exportData() {
-            if (!isAdmin()) { showToast('❌ Apenas administradores podem exportar', 'error'); return; }
+            if (!hasPermission('export_data')) {
+                showToast('🔒 Apenas administradores podem exportar dados', 'warning');
+                return;
+            }
             const data = { products, suppliers, clients, transactions, orders, sales, users, nextId, exportedAt: new Date().toISOString() };
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             const a = document.createElement('a');
@@ -686,7 +904,10 @@
         }
 
         function importData() {
-            if (!isAdmin()) { showToast('❌ Apenas administradores podem importar', 'error'); return; }
+            if (!hasPermission('import_data')) {
+                showToast('🔒 Apenas administradores podem importar dados', 'warning');
+                return;
+            }
             const input = document.createElement('input');
             input.type = 'file';
             input.accept = '.json';
@@ -704,12 +925,16 @@
                         transactions = d.transactions || [];
                         orders = d.orders || [];
                         sales = d.sales || [];
-                        users = d.users || [
-                            { id: 1, name: 'Administrador', email: 'admin@jwtecidos.com', password: 'admin123', role: 'Administrador', permissions: ['all'] }
-                        ];
-                        nextId = d.nextId || { product: 1, supplier: 1, client: 1, transaction: 1, order: 1, sale: 1, user: 2 };
+                        users = d.users || [];
+                        nextId = d.nextId || { product: 1, supplier: 1, client: 1, transaction: 1, order: 1, sale: 1, user: 1 };
+                        if (users.length === 0) {
+                            users = JSON.parse(JSON.stringify(USERS));
+                            nextId.user = 4;
+                        }
                         saveData();
+                        populateUserSelect();
                         renderAll();
+                        applyPermissions();
                         showToast('✅ Dados importados!', 'success');
                     } catch (err) { showToast('❌ Erro: ' + err.message, 'error'); }
                 };
@@ -725,14 +950,14 @@
             renderProducts();
             renderSuppliers();
             renderClients();
-            renderSales();
             renderOrders();
+            renderSales();
             renderFinance();
             renderUsers();
             updateDashboard();
             updateChart(currentPeriod);
             updateBadges();
-            checkPermissions();
+            applyPermissions();
         }
 
         // ========================================================================
@@ -741,26 +966,44 @@
         function navigateTo(el, view) {
             document.querySelectorAll('.nav-item').forEach(e => e.classList.remove('active'));
             el.classList.add('active');
-            ['dashboardView','productsView','suppliersView','salesView','ordersView','clientsView','financeView','usersView'].forEach(id => {
+            ['dashboardView','productsView','suppliersView','ordersView','salesView','clientsView','financeView','usersView'].forEach(id => {
                 document.getElementById(id).classList.add('hidden');
             });
-            const map = { dashboard:'dashboardView', products:'productsView', suppliers:'suppliersView', sales:'salesView', orders:'ordersView', clients:'clientsView', finance:'financeView', users:'usersView' };
+            const map = { dashboard:'dashboardView', products:'productsView', suppliers:'suppliersView', orders:'ordersView', sales:'salesView', clients:'clientsView', finance:'financeView', users:'usersView' };
             document.getElementById(map[view]).classList.remove('hidden');
             if (view === 'dashboard') updateDashboard();
             showToast('📱 ' + view.charAt(0).toUpperCase() + view.slice(1));
         }
 
         // ========================================================================
-        // DASHBOARD - CORRIGIDO PARA EVITAR NaN
+        // AUTO UPDATE
+        // ========================================================================
+        function startAutoUpdate() {
+            if (autoUpdateInterval) clearInterval(autoUpdateInterval);
+            autoUpdateInterval = setInterval(() => {
+                updateDashboard();
+                updateChart(currentPeriod);
+                updateBadges();
+            }, 3000);
+        }
+
+        function stopAutoUpdate() {
+            if (autoUpdateInterval) {
+                clearInterval(autoUpdateInterval);
+                autoUpdateInterval = null;
+            }
+        }
+
+        // ========================================================================
+        // DASHBOARD
         // ========================================================================
         function updateDashboard() {
             const today = new Date().toISOString().slice(0,10);
             
-            // Receita Hoje - com verificação de NaN
             const todaySales = sales.filter(s => s.date && s.date.startsWith(today));
             let totalRevenue = 0;
             todaySales.forEach(s => {
-                const val = parseFloat(String(s.total || '0').replace('R$ ', '').replace(',', '.'));
+                const val = parseFloat(s.total) || 0;
                 if (!isNaN(val)) totalRevenue += val;
             });
             
@@ -768,24 +1011,20 @@
             document.getElementById('revenueChange').className = 'kpi-change ' + (totalRevenue > 0 ? 'up' : 'empty');
             document.getElementById('revenueChange').textContent = totalRevenue > 0 ? '✅ Hoje' : 'Aguardando';
 
-            // Vendas Hoje
-            document.getElementById('salesValue').textContent = todaySales.length;
-            document.getElementById('salesChange').className = 'kpi-change ' + (todaySales.length > 0 ? 'up' : 'empty');
-            document.getElementById('salesChange').textContent = todaySales.length > 0 ? '✅ Hoje' : 'Aguardando';
+            const todayOrders = orders.filter(o => o.date && o.date.startsWith(today));
+            document.getElementById('ordersCountValue').textContent = todayOrders.length;
+            document.getElementById('ordersCountChange').className = 'kpi-change ' + (todayOrders.length > 0 ? 'up' : 'empty');
+            document.getElementById('ordersCountChange').textContent = todayOrders.length > 0 ? '✅ Hoje' : 'Aguardando';
 
-            // Clientes Ativos
-            const activeClients = clients.filter(c => c.status === 'Ativo').length;
-            document.getElementById('clientsValue').textContent = activeClients;
-            document.getElementById('clientsChange').className = 'kpi-change ' + (activeClients > 0 ? 'up' : 'empty');
-            document.getElementById('clientsChange').textContent = activeClients > 0 ? activeClients + ' ativos' : 'Aguardando';
+            document.getElementById('salesCountValue').textContent = todaySales.length;
+            document.getElementById('salesCountChange').className = 'kpi-change ' + (todaySales.length > 0 ? 'up' : 'empty');
+            document.getElementById('salesCountChange').textContent = todaySales.length > 0 ? '✅ Hoje' : 'Aguardando';
 
-            // Lucro Hoje (30% da receita)
             const profit = totalRevenue * 0.3;
             document.getElementById('profitValue').textContent = 'R$ ' + profit.toFixed(2).replace('.', ',');
             document.getElementById('profitChange').className = 'kpi-change ' + (profit > 0 ? 'up' : 'empty');
             document.getElementById('profitChange').textContent = profit > 0 ? '✅ Hoje' : 'Aguardando';
 
-            // Fluxo de Caixa - com verificação de NaN
             let todayIncome = 0;
             let todayExpense = 0;
             transactions.forEach(t => {
@@ -800,7 +1039,6 @@
             document.getElementById('cashOutflow').textContent = 'R$ ' + todayExpense.toFixed(2).replace('.', ',');
             document.getElementById('cashBalance').textContent = 'R$ ' + (todayIncome - todayExpense).toFixed(2).replace('.', ',');
 
-            // Estoque Baixo
             const lowStock = products.filter(p => parseInt(p.stock) < 20);
             const lowContainer = document.getElementById('lowStockList');
             lowContainer.innerHTML = '';
@@ -816,25 +1054,30 @@
                 });
             }
 
-            // Últimas Vendas
-            const recent = sales.slice(-3).reverse();
-            const recentContainer = document.getElementById('recentSales');
+            const recentOrders = orders.slice(-3).reverse();
+            const recentContainer = document.getElementById('recentOrders');
             recentContainer.innerHTML = '';
-            if (recent.length === 0) {
-                recentContainer.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>Nenhuma venda registrada</p></div>';
+            if (recentOrders.length === 0) {
+                recentContainer.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>Nenhum pedido registrado</p></div>';
             } else {
-                recent.forEach(s => {
+                recentOrders.forEach(o => {
                     const div = document.createElement('div');
                     div.className = 'list-item';
-                    div.innerHTML = `<span>#${s.id} - ${s.client}</span><span class="status ${s.status === 'Pago' ? 'paid' : 'preparing'}">${s.status}</span>`;
-                    div.onclick = () => openSaleModal(s.id);
+                    const statusClass = o.status === 'Aberto' ? 'open' : o.status === 'Aprovado' ? 'approved' : o.status === 'Separando' ? 'separating' : o.status === 'Faturado' ? 'invoiced' : 'canceled';
+                    div.innerHTML = `<span>${o.id} - ${o.client}</span><span class="status ${statusClass}">${o.status}</span>`;
+                    div.onclick = () => openOrderModal(o.id);
                     recentContainer.appendChild(div);
                 });
             }
 
-            // Produtos Mais Vendidos
             const productQty = {};
-            sales.forEach(s => { if (s.product) { productQty[s.product] = (productQty[s.product] || 0) + s.quantity; } });
+            sales.forEach(s => {
+                if (s.products) {
+                    s.products.forEach(p => {
+                        productQty[p.name] = (productQty[p.name] || 0) + p.qty;
+                    });
+                }
+            });
             const sorted = Object.entries(productQty).sort((a, b) => b[1] - a[1]).slice(0, 3);
             const topContainer = document.getElementById('topProducts');
             topContainer.innerHTML = '';
@@ -852,7 +1095,7 @@
         }
 
         // ========================================================================
-        // CHART - CORRIGIDO PARA EVITAR NaN
+        // CHART
         // ========================================================================
         function updateChart(period) {
             currentPeriod = period;
@@ -871,7 +1114,7 @@
                     const daySales = sales.filter(s => s.date && s.date.startsWith(dateStr));
                     let total = 0;
                     daySales.forEach(s => {
-                        const val = parseFloat(String(s.total || '0').replace('R$ ', '').replace(',', '.'));
+                        const val = parseFloat(s.total) || 0;
                         if (!isNaN(val)) total += val;
                     });
                     values[i] = total;
@@ -893,7 +1136,7 @@
                     });
                     let total = 0;
                     monthSales.forEach(s => {
-                        const val = parseFloat(String(s.total || '0').replace('R$ ', '').replace(',', '.'));
+                        const val = parseFloat(s.total) || 0;
                         if (!isNaN(val)) total += val;
                     });
                     values[i] = total;
@@ -904,7 +1147,7 @@
                 sales.forEach(s => {
                     if (!s.date) return;
                     const month = parseInt(s.date.slice(5,7)) - 1;
-                    const val = parseFloat(String(s.total || '0').replace('R$ ', '').replace(',', '.'));
+                    const val = parseFloat(s.total) || 0;
                     if (!isNaN(val)) values[month] += val;
                 });
             }
@@ -967,13 +1210,13 @@
         }
 
         // ========================================================================
-        // PRODUCTS - CRUD COMPLETO
+        // PRODUCTS - CRUD COM PERMISSÕES
         // ========================================================================
         function renderProducts() {
             const grid = document.getElementById('productsGrid');
             grid.innerHTML = '';
             if (products.length === 0) {
-                grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><i class="fas fa-box-open"></i><p>Nenhum produto cadastrado. Clique em "Novo Produto".</p></div>';
+                grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><i class="fas fa-box-open"></i><p>Nenhum produto cadastrado.</p></div>';
                 return;
             }
             products.forEach(p => {
@@ -986,18 +1229,26 @@
                     <div class="stock">Estoque: ${p.stock} ${isLowStock ? '⚠️' : ''} • ${p.category}</div>
                     <div class="stock">Fornecedor: ${p.supplier}</div>
                     <div class="card-actions">
-                        <button class="btn btn-edit btn-sm" onclick="event.stopPropagation();openProductForm(${p.id})"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-delete btn-sm" onclick="event.stopPropagation();deleteProduct(${p.id})"><i class="fas fa-trash"></i></button>
+                        ${hasPermission('edit_products') ? `<button class="btn btn-edit btn-sm" onclick="event.stopPropagation();openProductForm(${p.id})"><i class="fas fa-edit"></i></button>` : ''}
+                        ${hasPermission('delete_products') ? `<button class="btn btn-delete btn-sm" onclick="event.stopPropagation();deleteProduct(${p.id})"><i class="fas fa-trash"></i></button>` : ''}
                     </div>
                 `;
-                div.onclick = () => openProductModal(p.id);
+                if (hasPermission('view_products')) {
+                    div.onclick = () => openProductModal(p.id);
+                }
                 grid.appendChild(div);
             });
         }
 
         function openProductForm(id = null) {
-            if (!hasPermission('Cadastrar Produto') && !id) { showToast('❌ Você não tem permissão', 'error'); return; }
-            if (id && !hasPermission('Editar Produto')) { showToast('❌ Você não tem permissão para editar', 'error'); return; }
+            if (id && !hasPermission('edit_products')) {
+                showToast('🔒 Você não tem permissão para editar produtos', 'warning');
+                return;
+            }
+            if (!id && !hasPermission('create_products')) {
+                showToast('🔒 Você não tem permissão para criar produtos', 'warning');
+                return;
+            }
             editingType = 'product';
             editingId = id;
             const p = id ? products.find(x => x.id === id) : null;
@@ -1038,20 +1289,27 @@
             saveData();
             closeModal();
             renderProducts();
-            updateAll();
+            updateDashboard();
         }
 
         function deleteProduct(id) {
-            if (!hasPermission('Excluir Produto')) { showToast('❌ Você não tem permissão para excluir', 'error'); return; }
+            if (!hasPermission('delete_products')) {
+                showToast('🔒 Você não tem permissão para excluir produtos', 'warning');
+                return;
+            }
             if (!confirm('Excluir este produto?')) return;
             products = products.filter(p => p.id !== id);
             saveData();
             renderProducts();
-            updateAll();
+            updateDashboard();
             showToast('🗑️ Produto excluído', 'success');
         }
 
         function openProductModal(id) {
+            if (!hasPermission('view_products')) {
+                showToast('🔒 Você não tem permissão para visualizar produtos', 'warning');
+                return;
+            }
             const p = products.find(x => x.id === id);
             if (!p) return;
             document.getElementById('modalTitle').innerHTML = '<i class="fas fa-box"></i> ' + p.name;
@@ -1061,21 +1319,21 @@
                 <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Categoria</span><span>${p.category}</span></div>
                 <div style="display:flex;justify-content:space-between;padding:6px 0;"><span>Fornecedor</span><span>${p.supplier}</span></div>
                 <div class="modal-actions">
-                    <button class="btn btn-edit" onclick="closeModal();openProductForm(${p.id})"><i class="fas fa-edit"></i> Editar</button>
-                    ${hasPermission('Excluir Produto') ? `<button class="btn btn-delete" onclick="closeModal();deleteProduct(${p.id})"><i class="fas fa-trash"></i> Excluir</button>` : ''}
+                    ${hasPermission('edit_products') ? `<button class="btn btn-edit" onclick="closeModal();openProductForm(${p.id})"><i class="fas fa-edit"></i> Editar</button>` : ''}
+                    ${hasPermission('delete_products') ? `<button class="btn btn-delete" onclick="closeModal();deleteProduct(${p.id})"><i class="fas fa-trash"></i> Excluir</button>` : ''}
                 </div>
             `;
             document.getElementById('modalOverlay').classList.add('active');
         }
 
         // ========================================================================
-        // SUPPLIERS - CRUD COMPLETO
+        // SUPPLIERS - CRUD COM PERMISSÕES (RESUMIDO)
         // ========================================================================
         function renderSuppliers() {
             const grid = document.getElementById('suppliersGrid');
             grid.innerHTML = '';
             if (suppliers.length === 0) {
-                grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><i class="fas fa-truck"></i><p>Nenhum fornecedor. Clique em "Novo Fornecedor".</p></div>';
+                grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><i class="fas fa-truck"></i><p>Nenhum fornecedor.</p></div>';
                 return;
             }
             suppliers.forEach(s => {
@@ -1087,17 +1345,26 @@
                     <div style="font-size:12px;color:var(--gray-400);"><i class="fas fa-phone"></i> ${s.phone}</div>
                     <div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:4px;">${s.productTypes ? s.productTypes.map(t => `<span style="background:rgba(201,168,76,0.15);color:var(--gold);padding:0 8px;border-radius:30px;font-size:11px;">${t}</span>`).join('') : ''}</div>
                     <div class="card-actions">
-                        <button class="btn btn-edit btn-sm" onclick="event.stopPropagation();openSupplierForm(${s.id})"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-delete btn-sm" onclick="event.stopPropagation();deleteSupplier(${s.id})"><i class="fas fa-trash"></i></button>
+                        ${hasPermission('edit_suppliers') ? `<button class="btn btn-edit btn-sm" onclick="event.stopPropagation();openSupplierForm(${s.id})"><i class="fas fa-edit"></i></button>` : ''}
+                        ${hasPermission('delete_suppliers') ? `<button class="btn btn-delete btn-sm" onclick="event.stopPropagation();deleteSupplier(${s.id})"><i class="fas fa-trash"></i></button>` : ''}
                     </div>
                 `;
-                div.onclick = () => openSupplierModal(s.id);
+                if (hasPermission('view_suppliers')) {
+                    div.onclick = () => openSupplierModal(s.id);
+                }
                 grid.appendChild(div);
             });
         }
 
         function openSupplierForm(id = null) {
-            if (!hasPermission('Cadastrar Fornecedor') && !id) { showToast('❌ Você não tem permissão', 'error'); return; }
+            if (id && !hasPermission('edit_suppliers')) {
+                showToast('🔒 Você não tem permissão para editar fornecedores', 'warning');
+                return;
+            }
+            if (!id && !hasPermission('create_suppliers')) {
+                showToast('🔒 Você não tem permissão para criar fornecedores', 'warning');
+                return;
+            }
             editingType = 'supplier';
             editingId = id;
             const s = id ? suppliers.find(x => x.id === id) : null;
@@ -1141,7 +1408,10 @@
         }
 
         function deleteSupplier(id) {
-            if (!hasPermission('Excluir Fornecedor')) { showToast('❌ Você não tem permissão', 'error'); return; }
+            if (!hasPermission('delete_suppliers')) {
+                showToast('🔒 Você não tem permissão para excluir fornecedores', 'warning');
+                return;
+            }
             if (!confirm('Excluir este fornecedor?')) return;
             suppliers = suppliers.filter(s => s.id !== id);
             saveData();
@@ -1150,6 +1420,10 @@
         }
 
         function openSupplierModal(id) {
+            if (!hasPermission('view_suppliers')) {
+                showToast('🔒 Você não tem permissão para visualizar fornecedores', 'warning');
+                return;
+            }
             const s = suppliers.find(x => x.id === id);
             if (!s) return;
             document.getElementById('modalTitle').innerHTML = '<i class="fas fa-truck"></i> ' + s.name;
@@ -1158,21 +1432,21 @@
                 <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Telefone</span><span>${s.phone}</span></div>
                 <div style="display:flex;justify-content:space-between;padding:6px 0;"><span>Tipos</span><span>${s.productTypes ? s.productTypes.join(', ') : 'N/A'}</span></div>
                 <div class="modal-actions">
-                    <button class="btn btn-edit" onclick="closeModal();openSupplierForm(${s.id})"><i class="fas fa-edit"></i> Editar</button>
-                    ${hasPermission('Excluir Fornecedor') ? `<button class="btn btn-delete" onclick="closeModal();deleteSupplier(${s.id})"><i class="fas fa-trash"></i> Excluir</button>` : ''}
+                    ${hasPermission('edit_suppliers') ? `<button class="btn btn-edit" onclick="closeModal();openSupplierForm(${s.id})"><i class="fas fa-edit"></i> Editar</button>` : ''}
+                    ${hasPermission('delete_suppliers') ? `<button class="btn btn-delete" onclick="closeModal();deleteSupplier(${s.id})"><i class="fas fa-trash"></i> Excluir</button>` : ''}
                 </div>
             `;
             document.getElementById('modalOverlay').classList.add('active');
         }
 
         // ========================================================================
-        // CLIENTS - CRUD COMPLETO
+        // CLIENTS - CRUD COM PERMISSÕES (RESUMIDO)
         // ========================================================================
         function renderClients() {
             const grid = document.getElementById('clientsGrid');
             grid.innerHTML = '';
             if (clients.length === 0) {
-                grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><i class="fas fa-users"></i><p>Nenhum cliente. Clique em "Novo Cliente".</p></div>';
+                grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><i class="fas fa-users"></i><p>Nenhum cliente.</p></div>';
                 return;
             }
             clients.forEach(c => {
@@ -1184,18 +1458,26 @@
                     <div style="font-size:12px;color:var(--gray-400);"><i class="fas fa-phone"></i> ${c.phone}</div>
                     <div style="margin-top:6px;"><span class="status ${c.status === 'Ativo' ? 'active' : 'inactive'}">${c.status}</span></div>
                     <div class="card-actions">
-                        <button class="btn btn-edit btn-sm" onclick="event.stopPropagation();openClientForm(${c.id})"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-delete btn-sm" onclick="event.stopPropagation();deleteClient(${c.id})"><i class="fas fa-trash"></i></button>
+                        ${hasPermission('edit_clients') ? `<button class="btn btn-edit btn-sm" onclick="event.stopPropagation();openClientForm(${c.id})"><i class="fas fa-edit"></i></button>` : ''}
+                        ${hasPermission('delete_clients') ? `<button class="btn btn-delete btn-sm" onclick="event.stopPropagation();deleteClient(${c.id})"><i class="fas fa-trash"></i></button>` : ''}
                     </div>
                 `;
-                div.onclick = () => openClientModal(c.id);
+                if (hasPermission('view_clients')) {
+                    div.onclick = () => openClientModal(c.id);
+                }
                 grid.appendChild(div);
             });
         }
 
         function openClientForm(id = null) {
-            if (!hasPermission('Cadastrar Cliente') && !id) { showToast('❌ Você não tem permissão', 'error'); return; }
-            if (id && !hasPermission('Editar Cliente')) { showToast('❌ Você não tem permissão para editar', 'error'); return; }
+            if (id && !hasPermission('edit_clients')) {
+                showToast('🔒 Você não tem permissão para editar clientes', 'warning');
+                return;
+            }
+            if (!id && !hasPermission('create_clients')) {
+                showToast('🔒 Você não tem permissão para criar clientes', 'warning');
+                return;
+            }
             editingType = 'client';
             editingId = id;
             const c = id ? clients.find(x => x.id === id) : null;
@@ -1235,20 +1517,27 @@
             saveData();
             closeModal();
             renderClients();
-            updateAll();
+            updateDashboard();
         }
 
         function deleteClient(id) {
-            if (!hasPermission('Excluir Cliente')) { showToast('❌ Você não tem permissão para excluir', 'error'); return; }
+            if (!hasPermission('delete_clients')) {
+                showToast('🔒 Você não tem permissão para excluir clientes', 'warning');
+                return;
+            }
             if (!confirm('Excluir este cliente?')) return;
             clients = clients.filter(c => c.id !== id);
             saveData();
             renderClients();
-            updateAll();
+            updateDashboard();
             showToast('🗑️ Cliente excluído', 'success');
         }
 
         function openClientModal(id) {
+            if (!hasPermission('view_clients')) {
+                showToast('🔒 Você não tem permissão para visualizar clientes', 'warning');
+                return;
+            }
             const c = clients.find(x => x.id === id);
             if (!c) return;
             document.getElementById('modalTitle').innerHTML = '<i class="fas fa-user"></i> ' + c.name;
@@ -1258,179 +1547,48 @@
                 <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Endereço</span><span>${c.address}</span></div>
                 <div style="display:flex;justify-content:space-between;padding:6px 0;"><span>Status</span><span class="status ${c.status === 'Ativo' ? 'active' : 'inactive'}">${c.status}</span></div>
                 <div class="modal-actions">
-                    <button class="btn btn-edit" onclick="closeModal();openClientForm(${c.id})"><i class="fas fa-edit"></i> Editar</button>
-                    ${hasPermission('Excluir Cliente') ? `<button class="btn btn-delete" onclick="closeModal();deleteClient(${c.id})"><i class="fas fa-trash"></i> Excluir</button>` : ''}
+                    ${hasPermission('edit_clients') ? `<button class="btn btn-edit" onclick="closeModal();openClientForm(${c.id})"><i class="fas fa-edit"></i> Editar</button>` : ''}
+                    ${hasPermission('delete_clients') ? `<button class="btn btn-delete" onclick="closeModal();deleteClient(${c.id})"><i class="fas fa-trash"></i> Excluir</button>` : ''}
                 </div>
             `;
             document.getElementById('modalOverlay').classList.add('active');
         }
 
         // ========================================================================
-        // SALES - CRUD COMPLETO
-        // ========================================================================
-        function renderSales() {
-            const tbody = document.getElementById('salesTableBody');
-            tbody.innerHTML = '';
-            if (sales.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--gray-400);">Nenhuma venda. Clique em "Nova Venda".</td></tr>';
-                return;
-            }
-            sales.slice().reverse().forEach(s => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td><strong>#${s.id}</strong></td>
-                    <td>${s.client}</td>
-                    <td>${s.product}</td>
-                    <td>${s.quantity}</td>
-                    <td>${s.total}</td>
-                    <td><span class="status ${s.status === 'Pago' ? 'paid' : s.status === 'Pendente' ? 'preparing' : 'inactive'}">${s.status}</span></td>
-                    <td>
-                        <button class="btn btn-view btn-sm" onclick="openSaleModal(${s.id})"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-edit btn-sm" onclick="openSaleForm(${s.id})"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-delete btn-sm" onclick="deleteSale(${s.id})"><i class="fas fa-trash"></i></button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function openSaleForm(id = null) {
-            if (!hasPermission('Fazer Venda') && !id) { showToast('❌ Você não tem permissão', 'error'); return; }
-            editingType = 'sale';
-            editingId = id;
-            const s = id ? sales.find(x => x.id === id) : null;
-            document.getElementById('modalTitle').innerHTML = '<i class="fas fa-cash-register"></i> ' + (s ? 'Editar Venda' : 'Nova Venda');
-            const clientOpts = clients.map(c => `<option value="${c.name}" ${s && s.client === c.name ? 'selected' : ''}>${c.name}</option>`).join('');
-            const productOpts = products.map(p => `<option value="${p.name}" data-price="${p.price.replace('R$ ','').replace(',','.')}" ${s && s.product === p.name ? 'selected' : ''}>${p.name} - ${p.price}</option>`).join('');
-            document.getElementById('modalBody').innerHTML = `
-                <form onsubmit="saveSale(event)">
-                    <div class="form-group"><label>Cliente <span class="required">*</span></label><select id="f_sale_client" required><option value="">Selecione</option>${clientOpts}</select></div>
-                    <div class="form-group"><label>Produto <span class="required">*</span></label><select id="f_sale_product" required onchange="updateSaleFields()"><option value="">Selecione</option>${productOpts}</select></div>
-                    <div class="form-group"><label>Quantidade <span class="required">*</span></label><input type="number" id="f_sale_qty" value="${s ? s.quantity : 1}" min="1" required onchange="updateSaleFields()"></div>
-                    <div class="form-group"><label>Preço Unitário</label><input type="text" id="f_sale_price" value="${s ? s.unitPrice : 'R$ 0,00'}" readonly style="background:var(--gray-50);"></div>
-                    <div class="form-group"><label>Total</label><input type="text" id="f_sale_total" value="${s ? s.total : 'R$ 0,00'}" readonly style="background:var(--gray-50);font-weight:700;color:var(--gold);"></div>
-                    <div class="form-group"><label>Status</label><select id="f_sale_status"><option value="Pago" ${s && s.status === 'Pago' ? 'selected' : ''}>Pago</option><option value="Pendente" ${s && s.status === 'Pendente' ? 'selected' : ''}>Pendente</option><option value="Cancelado" ${s && s.status === 'Cancelado' ? 'selected' : ''}>Cancelado</option></select></div>
-                    <div class="modal-actions">
-                        <button type="submit" class="btn btn-gold"><i class="fas fa-save"></i> Salvar</button>
-                        <button type="button" class="btn btn-primary" onclick="closeModal()">Cancelar</button>
-                    </div>
-                </form>
-            `;
-            document.getElementById('modalOverlay').classList.add('active');
-            if (s) setTimeout(updateSaleFields, 100);
-        }
-
-        function updateSaleFields() {
-            const productSelect = document.getElementById('f_sale_product');
-            const option = productSelect.options[productSelect.selectedIndex];
-            const qty = parseInt(document.getElementById('f_sale_qty').value) || 0;
-            let price = 0;
-            if (option && option.dataset.price) {
-                price = parseFloat(option.dataset.price) || 0;
-            }
-            document.getElementById('f_sale_price').value = 'R$ ' + price.toFixed(2).replace('.', ',');
-            document.getElementById('f_sale_total').value = 'R$ ' + (price * qty).toFixed(2).replace('.', ',');
-        }
-
-        function saveSale(e) {
-            e.preventDefault();
-            const client = document.getElementById('f_sale_client').value;
-            const product = document.getElementById('f_sale_product').value;
-            const quantity = parseInt(document.getElementById('f_sale_qty').value);
-            const unitPrice = document.getElementById('f_sale_price').value;
-            const total = document.getElementById('f_sale_total').value;
-            const status = document.getElementById('f_sale_status').value;
-            const date = new Date().toISOString().slice(0,10) + ' ' + new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
-            if (!client || !product || !quantity) { showToast('⚠️ Preencha os campos', 'warning'); return; }
-
-            // Atualiza estoque
-            const prod = products.find(p => p.name === product);
-            if (prod) {
-                const stockQty = parseInt(prod.stock);
-                if (stockQty < quantity) { showToast('⚠️ Estoque insuficiente! Disponível: ' + stockQty, 'warning'); return; }
-                prod.stock = (stockQty - quantity) + 'm';
-            }
-
-            // Cria transação financeira automaticamente
-            const totalValue = parseFloat(total.replace('R$ ', '').replace(',', '.'));
-            if (status === 'Pago' && totalValue > 0 && !isNaN(totalValue)) {
-                transactions.push({
-                    id: nextId.transaction++,
-                    description: 'Venda #' + (editingId || nextId.sale) + ' - ' + client,
-                    amount: totalValue,
-                    type: 'income',
-                    date: date,
-                    category: 'Vendas'
-                });
-            }
-
-            if (editingId) {
-                const index = sales.findIndex(s => s.id === editingId);
-                if (index !== -1) sales[index] = { ...sales[index], client, product, quantity, unitPrice, total, status, date };
-                showToast('✅ Venda atualizada!', 'success');
-            } else {
-                sales.push({ id: nextId.sale++, client, product, quantity, unitPrice, total, status, date });
-                showToast('✅ Venda registrada!', 'success');
-            }
-            saveData();
-            closeModal();
-            renderSales();
-            updateAll();
-        }
-
-        function deleteSale(id) {
-            if (!hasPermission('Cancelar Venda')) { showToast('❌ Você não tem permissão para cancelar vendas', 'error'); return; }
-            if (!confirm('Excluir esta venda?')) return;
-            sales = sales.filter(s => s.id !== id);
-            saveData();
-            renderSales();
-            updateAll();
-            showToast('🗑️ Venda excluída', 'success');
-        }
-
-        function openSaleModal(id) {
-            const s = sales.find(x => x.id === id);
-            if (!s) return;
-            document.getElementById('modalTitle').innerHTML = '<i class="fas fa-cash-register"></i> Venda #' + s.id;
-            document.getElementById('modalBody').innerHTML = `
-                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Cliente</span><span>${s.client}</span></div>
-                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Produto</span><span>${s.product}</span></div>
-                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Quantidade</span><span>${s.quantity}</span></div>
-                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Preço Unitário</span><span style="color:var(--gold);font-weight:700;">${s.unitPrice}</span></div>
-                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Total</span><span style="color:var(--gold);font-weight:700;">${s.total}</span></div>
-                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Status</span><span class="status ${s.status === 'Pago' ? 'paid' : 'preparing'}">${s.status}</span></div>
-                <div style="display:flex;justify-content:space-between;padding:6px 0;"><span>Data</span><span>${s.date}</span></div>
-                <div class="modal-actions">
-                    <button class="btn btn-edit" onclick="closeModal();openSaleForm(${s.id})"><i class="fas fa-edit"></i> Editar</button>
-                    ${hasPermission('Cancelar Venda') ? `<button class="btn btn-delete" onclick="closeModal();deleteSale(${s.id})"><i class="fas fa-trash"></i> Excluir</button>` : ''}
-                    <button class="btn btn-gold" onclick="showToast('📄 Comprovante gerado!')"><i class="fas fa-print"></i> Imprimir</button>
-                </div>
-            `;
-            document.getElementById('modalOverlay').classList.add('active');
-        }
-
-        // ========================================================================
-        // ORDERS - CRUD COMPLETO
+        // ORDERS - CRUD COM PERMISSÕES (RESUMIDO)
         // ========================================================================
         function renderOrders() {
             const tbody = document.getElementById('ordersTableBody');
             tbody.innerHTML = '';
             if (orders.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--gray-400);">Nenhum pedido. Clique em "Novo Pedido".</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:20px;color:var(--gray-400);">Nenhum pedido encontrado.</td></tr>';
                 return;
             }
             orders.slice().reverse().forEach(o => {
                 const tr = document.createElement('tr');
+                const statusClass = o.status === 'Aberto' ? 'open' : o.status === 'Aprovado' ? 'approved' : o.status === 'Separando' ? 'separating' : o.status === 'Faturado' ? 'invoiced' : 'canceled';
+                const linkedSale = sales.find(s => s.order_id === o.id);
+                const saleLink = linkedSale ? `<span class="link-badge" onclick="openSaleModal('${linkedSale.id}')">${linkedSale.id}</span>` : '<span style="color:var(--gray-400);font-size:11px;">-</span>';
+                const productNames = o.products ? o.products.map(p => p.name + ' (' + p.qty + 'x)').join('<br>') : '-';
+                const canInvoice = o.status !== 'Faturado' && o.status !== 'Cancelado';
+                const canEdit = o.status === 'Aberto' && hasPermission('edit_orders');
+                const canDelete = o.status !== 'Cancelado' && o.status !== 'Faturado' && hasPermission('delete_orders');
+                
                 tr.innerHTML = `
                     <td><strong>${o.id}</strong></td>
                     <td>${o.client}</td>
-                    <td>${o.total}</td>
-                    <td>${o.items}</td>
-                    <td><span class="status ${o.status === 'Pago' ? 'paid' : o.status === 'Enviado' ? 'sent' : o.status === 'Cancelado' ? 'inactive' : 'preparing'}">${o.status}</span></td>
+                    <td style="font-size:11px;">${productNames}</td>
+                    <td style="font-weight:700;color:var(--gold);">R$ ${o.total.toFixed(2)}</td>
+                    <td>${o.seller || '-'}</td>
+                    <td><span class="status ${statusClass}">${o.status}</span></td>
+                    <td>${saleLink}</td>
                     <td>
-                        <button class="btn btn-view btn-sm" onclick="openOrderModal('${o.id}')"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-edit btn-sm" onclick="openOrderForm('${o.id}')"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-delete btn-sm" onclick="deleteOrder('${o.id}')"><i class="fas fa-trash"></i></button>
+                        <div class="actions-cell">
+                            <button class="btn btn-view btn-sm" onclick="openOrderModal('${o.id}')"><i class="fas fa-eye"></i></button>
+                            ${canEdit ? `<button class="btn btn-edit btn-sm" onclick="editOrder('${o.id}')"><i class="fas fa-edit"></i></button>` : ''}
+                            ${canInvoice && hasPermission('invoice_orders') ? `<button class="btn btn-invoice btn-sm" onclick="invoiceOrder('${o.id}')"><i class="fas fa-file-invoice"></i> Faturar</button>` : ''}
+                            ${canDelete ? `<button class="btn btn-danger btn-sm" onclick="cancelOrder('${o.id}')"><i class="fas fa-times"></i></button>` : ''}
+                        </div>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -1438,19 +1596,354 @@
         }
 
         function openOrderForm(id = null) {
-            if (!hasPermission('Criar Pedidos') && !id) { showToast('❌ Você não tem permissão', 'error'); return; }
+            if (id && !hasPermission('edit_orders')) {
+                showToast('🔒 Você não tem permissão para editar pedidos', 'warning');
+                return;
+            }
+            if (!id && !hasPermission('create_orders')) {
+                showToast('🔒 Você não tem permissão para criar pedidos', 'warning');
+                return;
+            }
+            // Mesma lógica anterior para abrir o formulário...
             editingType = 'order';
             editingId = id;
             const o = id ? orders.find(x => x.id === id) : null;
             document.getElementById('modalTitle').innerHTML = '<i class="fas fa-shopping-cart"></i> ' + (o ? 'Editar Pedido' : 'Novo Pedido');
+            
             const clientOpts = clients.map(c => `<option value="${c.name}" ${o && o.client === c.name ? 'selected' : ''}>${c.name}</option>`).join('');
+            const sellerOpts = users.map(u => `<option value="${u.name}" ${o && o.seller === u.name ? 'selected' : ''}>${u.name}</option>`).join('');
+            const productOpts = products.map(p => `<option value="${p.name}" data-price="${parseFloat(p.price.replace('R$ ','').replace(',','.'))}">${p.name} - ${p.price}</option>`).join('');
+            
+            let productsHtml = '';
+            if (o && o.products) {
+                o.products.forEach((p, idx) => {
+                    productsHtml += `
+                        <div style="display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid var(--gray-100);">
+                            <span style="flex:1;">${p.name}</span>
+                            <span>Qtd: ${p.qty}</span>
+                            <span style="color:var(--gold);font-weight:700;">R$ ${(p.price * p.qty).toFixed(2)}</span>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="removeProductFromOrder(${idx})"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `;
+                });
+            }
+            
             document.getElementById('modalBody').innerHTML = `
-                <form onsubmit="saveOrder(event)">
-                    <div class="form-group"><label>ID <span class="required">*</span></label><input type="text" id="f_ord_id" value="${o ? o.id : '#ORD' + String(nextId.order).padStart(3, '0')}" required></div>
+                <form id="orderForm" onsubmit="saveOrder(event)">
+                    <div class="form-group"><label>ID <span class="required">*</span></label><input type="text" id="f_ord_id" value="${o ? o.id : 'PED-' + String(nextId.order).padStart(3, '0')}" required></div>
                     <div class="form-group"><label>Cliente <span class="required">*</span></label><select id="f_ord_client" required><option value="">Selecione</option>${clientOpts}</select></div>
-                    <div class="form-group"><label>Total (R$) <span class="required">*</span></label><input type="text" id="f_ord_total" value="${o ? o.total : 'R$ 0,00'}" required></div>
-                    <div class="form-group"><label>Itens <span class="required">*</span></label><input type="number" id="f_ord_items" value="${o ? o.items : 1}" min="1" required></div>
-                    <div class="form-group"><label>Status</label><select id="f_ord_status"><option value="Pago" ${o && o.status === 'Pago' ? 'selected' : ''}>Pago</option><option value="Enviado" ${o && o.status === 'Enviado' ? 'selected' : ''}>Enviado</option><option value="Preparando" ${o && o.status === 'Preparando' ? 'selected' : ''}>Preparando</option><option value="Cancelado" ${o && o.status === 'Cancelado' ? 'selected' : ''}>Cancelado</option></select></div>
+                    <div class="form-group"><label>Vendedor <span class="required">*</span></label><select id="f_ord_seller" required><option value="">Selecione</option>${sellerOpts}</select></div>
+                    <div class="form-group"><label>Status</label>
+                        <select id="f_ord_status">
+                            <option value="Aberto" ${o && o.status === 'Aberto' ? 'selected' : ''}>Aberto</option>
+                            <option value="Aprovado" ${o && o.status === 'Aprovado' ? 'selected' : ''}>Aprovado</option>
+                            <option value="Separando" ${o && o.status === 'Separando' ? 'selected' : ''}>Separando</option>
+                            <option value="Faturado" ${o && o.status === 'Faturado' ? 'selected' : ''}>Faturado</option>
+                            <option value="Cancelado" ${o && o.status === 'Cancelado' ? 'selected' : ''}>Cancelado</option>
+                        </select>
+                    </div>
+                    
+                    <div style="border:1px solid var(--gray-200);border-radius:8px;padding:12px;margin-bottom:12px;">
+                        <label style="font-weight:500;font-size:13px;color:var(--primary);display:block;margin-bottom:6px;">Produtos</label>
+                        <div style="display:flex;gap:8px;margin-bottom:8px;">
+                            <select id="f_ord_product" style="flex:1;padding:6px 10px;border:2px solid var(--gray-200);border-radius:8px;font-size:12px;">
+                                <option value="">Selecione um produto</option>
+                                ${productOpts}
+                            </select>
+                            <input type="number" id="f_ord_qty" value="1" min="1" style="width:60px;padding:6px 10px;border:2px solid var(--gray-200);border-radius:8px;font-size:12px;">
+                            <button type="button" class="btn btn-gold btn-sm" onclick="addProductToOrder()"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <div id="orderProductsList">${productsHtml || '<div style="color:var(--gray-400);font-size:12px;">Nenhum produto adicionado</div>'}</div>
+                    </div>
+                    
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                        <div class="form-group"><label>Desconto (R$)</label><input type="number" step="0.01" id="f_ord_discount" value="${o ? o.discount || 0 : 0}" onchange="updateOrderTotal()"></div>
+                        <div class="form-group"><label>Frete (R$)</label><input type="number" step="0.01" id="f_ord_freight" value="${o ? o.freight || 0 : 0}" onchange="updateOrderTotal()"></div>
+                    </div>
+                    <div class="form-group"><label>Total do Pedido</label><input type="text" id="f_ord_total" value="${o ? 'R$ ' + o.total.toFixed(2) : 'R$ 0,00'}" readonly style="background:var(--gray-50);font-weight:700;color:var(--gold);font-size:16px;"></div>
+                    
+                    <div class="modal-actions">
+                        <button type="submit" class="btn btn-gold"><i class="fas fa-save"></i> Salvar</button>
+                        <button type="button" class="btn btn-primary" onclick="closeModal()">Cancelar</button>
+                    </div>
+                </form>
+            `;
+            document.getElementById('modalOverlay').classList.add('active');
+            
+            window._orderProducts = o && o.products ? [...o.products] : [];
+            window._orderDiscount = o ? o.discount || 0 : 0;
+            window._orderFreight = o ? o.freight || 0 : 0;
+            updateOrderTotalDisplay();
+        }
+
+        // Funções auxiliares de pedido (addProductToOrder, removeProductFromOrder, etc) mantidas iguais
+        function addProductToOrder() {
+            const select = document.getElementById('f_ord_product');
+            const qtyInput = document.getElementById('f_ord_qty');
+            const productName = select.value;
+            const qty = parseInt(qtyInput.value) || 1;
+            if (!productName) { showToast('⚠️ Selecione um produto', 'warning'); return; }
+            const option = select.options[select.selectedIndex];
+            const price = parseFloat(option.dataset.price) || 0;
+            if (!window._orderProducts) window._orderProducts = [];
+            window._orderProducts.push({ name: productName, qty: qty, price: price });
+            updateOrderProductsList();
+            updateOrderTotalDisplay();
+            qtyInput.value = 1;
+        }
+
+        function removeProductFromOrder(index) {
+            if (!window._orderProducts) return;
+            window._orderProducts.splice(index, 1);
+            updateOrderProductsList();
+            updateOrderTotalDisplay();
+        }
+
+        function updateOrderProductsList() {
+            const container = document.getElementById('orderProductsList');
+            if (!container) return;
+            if (!window._orderProducts || window._orderProducts.length === 0) {
+                container.innerHTML = '<div style="color:var(--gray-400);font-size:12px;">Nenhum produto adicionado</div>';
+                return;
+            }
+            container.innerHTML = window._orderProducts.map((p, idx) => `
+                <div style="display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid var(--gray-100);">
+                    <span style="flex:1;">${p.name}</span>
+                    <span>Qtd: ${p.qty}</span>
+                    <span style="color:var(--gold);font-weight:700;">R$ ${(p.price * p.qty).toFixed(2)}</span>
+                    ${hasPermission('edit_orders') ? `<button type="button" class="btn btn-danger btn-sm" onclick="removeProductFromOrder(${idx})"><i class="fas fa-trash"></i></button>` : ''}
+                </div>
+            `).join('');
+        }
+
+        function updateOrderTotalDisplay() {
+            const totalInput = document.getElementById('f_ord_total');
+            const discountInput = document.getElementById('f_ord_discount');
+            const freightInput = document.getElementById('f_ord_freight');
+            if (!totalInput) return;
+            let subtotal = 0;
+            if (window._orderProducts) {
+                window._orderProducts.forEach(p => { subtotal += p.price * p.qty; });
+            }
+            const discount = parseFloat(discountInput ? discountInput.value : 0) || 0;
+            const freight = parseFloat(freightInput ? freightInput.value : 0) || 0;
+            const total = subtotal - discount + freight;
+            totalInput.value = 'R$ ' + total.toFixed(2);
+        }
+
+        function updateOrderTotal() {
+            updateOrderTotalDisplay();
+        }
+
+        function saveOrder(e) {
+            e.preventDefault();
+            const id = document.getElementById('f_ord_id').value;
+            const client = document.getElementById('f_ord_client').value;
+            const seller = document.getElementById('f_ord_seller').value;
+            const status = document.getElementById('f_ord_status').value;
+            const discount = parseFloat(document.getElementById('f_ord_discount').value) || 0;
+            const freight = parseFloat(document.getElementById('f_ord_freight').value) || 0;
+            let subtotal = 0;
+            if (window._orderProducts) {
+                window._orderProducts.forEach(p => { subtotal += p.price * p.qty; });
+            }
+            const total = subtotal - discount + freight;
+            if (!id || !client || !seller || window._orderProducts.length === 0) {
+                showToast('⚠️ Preencha todos os campos e adicione produtos', 'warning');
+                return;
+            }
+            if (editingId) {
+                const index = orders.findIndex(o => o.id === editingId);
+                if (index !== -1) {
+                    orders[index] = { ...orders[index], id, client, seller, status, products: window._orderProducts, discount, freight, total, date: orders[index].date || new Date().toISOString().slice(0,10) };
+                    showToast('✅ Pedido atualizado!', 'success');
+                }
+            } else {
+                orders.push({ id, client, seller, status, products: window._orderProducts, discount, freight, total, date: new Date().toISOString().slice(0,10) });
+                nextId.order++;
+                showToast('✅ Pedido adicionado!', 'success');
+            }
+            saveData();
+            closeModal();
+            renderOrders();
+            updateDashboard();
+            updateBadges();
+        }
+
+        function editOrder(id) { openOrderForm(id); }
+
+        function cancelOrder(id) {
+            if (!hasPermission('delete_orders')) {
+                showToast('🔒 Você não tem permissão para cancelar pedidos', 'warning');
+                return;
+            }
+            if (!confirm('Cancelar este pedido?')) return;
+            const order = orders.find(o => o.id === id);
+            if (order) {
+                order.status = 'Cancelado';
+                saveData();
+                renderOrders();
+                updateDashboard();
+                updateBadges();
+                showToast('🗑️ Pedido cancelado', 'success');
+            }
+        }
+
+        function openOrderModal(id) {
+            if (!hasPermission('view_orders')) {
+                showToast('🔒 Você não tem permissão para visualizar pedidos', 'warning');
+                return;
+            }
+            const o = orders.find(x => x.id === id);
+            if (!o) return;
+            document.getElementById('modalTitle').innerHTML = '<i class="fas fa-shopping-cart"></i> Pedido ' + o.id;
+            const linkedSale = sales.find(s => s.order_id === o.id);
+            const saleInfo = linkedSale ? `<span class="link-badge" onclick="closeModal();openSaleModal('${linkedSale.id}')">${linkedSale.id}</span>` : 'Não faturado';
+            const productList = o.products ? o.products.map(p => p.name + ' (' + p.qty + 'x) - R$ ' + (p.price * p.qty).toFixed(2)).join('<br>') : '-';
+            document.getElementById('modalBody').innerHTML = `
+                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Cliente</span><span>${o.client}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Vendedor</span><span>${o.seller}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Produtos</span><span style="text-align:right;">${productList}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Subtotal</span><span>R$ ${(o.total + o.discount - o.freight).toFixed(2)}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Desconto</span><span>R$ ${(o.discount || 0).toFixed(2)}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Frete</span><span>R$ ${(o.freight || 0).toFixed(2)}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Total</span><span style="color:var(--gold);font-weight:700;">R$ ${o.total.toFixed(2)}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Status</span><span class="status ${o.status === 'Aberto' ? 'open' : o.status === 'Aprovado' ? 'approved' : o.status === 'Separando' ? 'separating' : o.status === 'Faturado' ? 'invoiced' : 'canceled'}">${o.status}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;"><span>Venda Vinculada</span><span>${saleInfo}</span></div>
+                <div class="modal-actions">
+                    ${o.status === 'Aberto' && hasPermission('edit_orders') ? `<button class="btn btn-edit" onclick="closeModal();editOrder('${o.id}')"><i class="fas fa-edit"></i> Editar</button>` : ''}
+                    ${o.status !== 'Faturado' && o.status !== 'Cancelado' && hasPermission('invoice_orders') ? `<button class="btn btn-invoice" onclick="closeModal();invoiceOrder('${o.id}')"><i class="fas fa-file-invoice"></i> Faturar</button>` : ''}
+                    ${o.status !== 'Cancelado' && o.status !== 'Faturado' && hasPermission('delete_orders') ? `<button class="btn btn-danger" onclick="closeModal();cancelOrder('${o.id}')"><i class="fas fa-times"></i> Cancelar</button>` : ''}
+                </div>
+            `;
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        // ========================================================================
+        // INVOICE ORDER
+        // ========================================================================
+        function invoiceOrder(orderId) {
+            if (!hasPermission('invoice_orders')) {
+                showToast('🔒 Você não tem permissão para faturar pedidos', 'warning');
+                return;
+            }
+            const order = orders.find(o => o.id === orderId);
+            if (!order) { showToast('❌ Pedido não encontrado', 'error'); return; }
+            if (order.status === 'Faturado') { showToast('⚠️ Este pedido já está faturado', 'warning'); return; }
+            if (order.status === 'Cancelado') { showToast('⚠️ Pedido cancelado não pode ser faturado', 'warning'); return; }
+            
+            let hasStock = true;
+            if (order.products) {
+                order.products.forEach(p => {
+                    const prod = products.find(pr => pr.name === p.name);
+                    if (prod) {
+                        const stockQty = parseInt(prod.stock);
+                        if (stockQty < p.qty) {
+                            hasStock = false;
+                            showToast('⚠️ Estoque insuficiente para ' + p.name + '! Disponível: ' + stockQty, 'warning');
+                        }
+                    }
+                });
+            }
+            if (!hasStock) return;
+            
+            if (order.products) {
+                order.products.forEach(p => {
+                    const prod = products.find(pr => pr.name === p.name);
+                    if (prod) {
+                        const stockQty = parseInt(prod.stock);
+                        prod.stock = (stockQty - p.qty) + 'm';
+                    }
+                });
+            }
+            
+            const saleId = 'VEN-' + String(nextId.sale).padStart(3, '0');
+            const newSale = {
+                id: saleId,
+                order_id: order.id,
+                client: order.client,
+                products: order.products ? order.products.map(p => ({...p})) : [],
+                total: order.total,
+                status: 'Pago',
+                date: new Date().toISOString().slice(0,10) + ' ' + new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}),
+                payment_method: 'A definir'
+            };
+            sales.push(newSale);
+            nextId.sale++;
+            order.status = 'Faturado';
+            transactions.push({
+                id: nextId.transaction++,
+                description: 'Venda ' + saleId + ' - ' + order.client,
+                amount: order.total,
+                type: 'income',
+                date: new Date().toISOString().slice(0,10) + ' ' + new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}),
+                category: 'Vendas'
+            });
+            saveData();
+            renderOrders();
+            renderSales();
+            renderFinance();
+            updateDashboard();
+            updateChart(currentPeriod);
+            updateBadges();
+            showToast('✅ Pedido faturado! Venda ' + saleId + ' criada com sucesso!', 'success');
+        }
+
+        // ========================================================================
+        // SALES - CRUD COM PERMISSÕES (RESUMIDO)
+        // ========================================================================
+        function renderSales() {
+            const tbody = document.getElementById('salesTableBody');
+            tbody.innerHTML = '';
+            if (sales.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--gray-400);">Nenhuma venda. As vendas são geradas ao faturar pedidos.</td></tr>';
+                return;
+            }
+            sales.slice().reverse().forEach(s => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${s.id}</strong></td>
+                    <td><span class="link-badge" onclick="openOrderModal('${s.order_id}')">${s.order_id}</span></td>
+                    <td>${s.client}</td>
+                    <td style="font-weight:700;color:var(--gold);">R$ ${s.total.toFixed(2)}</td>
+                    <td><span class="status paid">${s.status}</span></td>
+                    <td>
+                        <button class="btn btn-view btn-sm" onclick="openSaleModal('${s.id}')"><i class="fas fa-eye"></i></button>
+                        ${hasPermission('edit_sales') ? `<button class="btn btn-edit btn-sm" onclick="editSale('${s.id}')"><i class="fas fa-edit"></i></button>` : ''}
+                        ${hasPermission('delete_sales') ? `<button class="btn btn-delete btn-sm" onclick="deleteSale(${s.id})"><i class="fas fa-trash"></i></button>` : ''}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function editSale(id) {
+            if (!hasPermission('edit_sales')) {
+                showToast('🔒 Você não tem permissão para editar vendas', 'warning');
+                return;
+            }
+            const sale = sales.find(s => s.id === id);
+            if (!sale) return;
+            document.getElementById('modalTitle').innerHTML = '<i class="fas fa-cash-register"></i> Editar Venda ' + sale.id;
+            document.getElementById('modalBody').innerHTML = `
+                <form onsubmit="saveSaleEdit(event)">
+                    <input type="hidden" id="edit_sale_id" value="${sale.id}">
+                    <div class="form-group"><label>Status</label>
+                        <select id="edit_sale_status">
+                            <option value="Pago" ${sale.status === 'Pago' ? 'selected' : ''}>Pago</option>
+                            <option value="Pendente" ${sale.status === 'Pendente' ? 'selected' : ''}>Pendente</option>
+                            <option value="Cancelado" ${sale.status === 'Cancelado' ? 'selected' : ''}>Cancelado</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label>Forma de Pagamento</label>
+                        <select id="edit_sale_payment">
+                            <option value="PIX" ${sale.payment_method === 'PIX' ? 'selected' : ''}>PIX</option>
+                            <option value="Dinheiro" ${sale.payment_method === 'Dinheiro' ? 'selected' : ''}>Dinheiro</option>
+                            <option value="Cartão Crédito" ${sale.payment_method === 'Cartão Crédito' ? 'selected' : ''}>Cartão Crédito</option>
+                            <option value="Cartão Débito" ${sale.payment_method === 'Cartão Débito' ? 'selected' : ''}>Cartão Débito</option>
+                            <option value="Boleto" ${sale.payment_method === 'Boleto' ? 'selected' : ''}>Boleto</option>
+                        </select>
+                    </div>
                     <div class="modal-actions">
                         <button type="submit" class="btn btn-gold"><i class="fas fa-save"></i> Salvar</button>
                         <button type="button" class="btn btn-primary" onclick="closeModal()">Cancelar</button>
@@ -1460,65 +1953,69 @@
             document.getElementById('modalOverlay').classList.add('active');
         }
 
-        function saveOrder(e) {
+        function saveSaleEdit(e) {
             e.preventDefault();
-            const id = document.getElementById('f_ord_id').value;
-            const client = document.getElementById('f_ord_client').value;
-            const total = document.getElementById('f_ord_total').value;
-            const items = parseInt(document.getElementById('f_ord_items').value);
-            const status = document.getElementById('f_ord_status').value;
-            const date = new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
-            if (!id || !client || !total || !items) { showToast('⚠️ Preencha os campos', 'warning'); return; }
-            if (!clients.some(c => c.name === client)) { showToast('⚠️ Cliente não encontrado', 'warning'); return; }
-
-            if (editingId) {
-                const index = orders.findIndex(o => o.id === editingId);
-                if (index !== -1) orders[index] = { ...orders[index], id, client, total, items, status, date };
-                showToast('✅ Pedido atualizado!', 'success');
-            } else {
-                orders.push({ id, client, total, items, status, date });
-                nextId.order++;
-                showToast('✅ Pedido adicionado!', 'success');
+            const id = document.getElementById('edit_sale_id').value;
+            const status = document.getElementById('edit_sale_status').value;
+            const payment_method = document.getElementById('edit_sale_payment').value;
+            const sale = sales.find(s => s.id === id);
+            if (sale) {
+                sale.status = status;
+                sale.payment_method = payment_method;
+                saveData();
+                renderSales();
+                updateDashboard();
+                closeModal();
+                showToast('✅ Venda atualizada!', 'success');
             }
-            saveData();
-            closeModal();
-            renderOrders();
-            updateAll();
         }
 
-        function deleteOrder(id) {
-            if (!hasPermission('Cancelar Pedidos')) { showToast('❌ Você não tem permissão', 'error'); return; }
-            if (!confirm('Excluir este pedido?')) return;
-            orders = orders.filter(o => o.id !== id);
+        function deleteSale(id) {
+            if (!hasPermission('delete_sales')) {
+                showToast('🔒 Você não tem permissão para excluir vendas', 'warning');
+                return;
+            }
+            if (!confirm('Excluir esta venda?')) return;
+            sales = sales.filter(s => s.id !== id);
             saveData();
-            renderOrders();
-            updateAll();
-            showToast('🗑️ Pedido excluído', 'success');
+            renderSales();
+            updateDashboard();
+            showToast('🗑️ Venda excluída', 'success');
         }
 
-        function openOrderModal(id) {
-            const o = orders.find(x => x.id === id);
-            if (!o) return;
-            document.getElementById('modalTitle').innerHTML = '<i class="fas fa-shopping-cart"></i> Pedido ' + o.id;
+        function openSaleModal(id) {
+            if (!hasPermission('view_sales')) {
+                showToast('🔒 Você não tem permissão para visualizar vendas', 'warning');
+                return;
+            }
+            const s = sales.find(x => x.id === id);
+            if (!s) return;
+            document.getElementById('modalTitle').innerHTML = '<i class="fas fa-cash-register"></i> Venda ' + s.id;
             document.getElementById('modalBody').innerHTML = `
-                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Cliente</span><span>${o.client}</span></div>
-                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Total</span><span style="color:var(--gold);font-weight:700;">${o.total}</span></div>
-                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Itens</span><span>${o.items}</span></div>
-                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Status</span><span class="status ${o.status === 'Pago' ? 'paid' : o.status === 'Enviado' ? 'sent' : 'preparing'}">${o.status}</span></div>
-                <div style="display:flex;justify-content:space-between;padding:6px 0;"><span>Data</span><span>${o.date}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Pedido Originado</span><span class="link-badge" onclick="closeModal();openOrderModal('${s.order_id}')">${s.order_id}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Cliente</span><span>${s.client}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Total</span><span style="color:var(--gold);font-weight:700;">R$ ${s.total.toFixed(2)}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Status</span><span class="status paid">${s.status}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Pagamento</span><span>${s.payment_method || '-'}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;"><span>Data</span><span>${s.date}</span></div>
                 <div class="modal-actions">
-                    <button class="btn btn-edit" onclick="closeModal();openOrderForm('${o.id}')"><i class="fas fa-edit"></i> Editar</button>
-                    ${hasPermission('Cancelar Pedidos') ? `<button class="btn btn-delete" onclick="closeModal();deleteOrder('${o.id}')"><i class="fas fa-trash"></i> Excluir</button>` : ''}
-                    <button class="btn btn-gold" onclick="showToast('📧 Notificação enviada!')"><i class="fas fa-envelope"></i> Notificar</button>
+                    ${hasPermission('edit_sales') ? `<button class="btn btn-edit" onclick="closeModal();editSale('${s.id}')"><i class="fas fa-edit"></i> Editar</button>` : ''}
+                    <button class="btn btn-gold" onclick="closeModal();showToast('📄 Nota fiscal gerada!')"><i class="fas fa-print"></i> Emitir NF</button>
                 </div>
             `;
             document.getElementById('modalOverlay').classList.add('active');
         }
 
         // ========================================================================
-        // FINANCE - CRUD COMPLETO
+        // FINANCE - CRUD COM PERMISSÕES
         // ========================================================================
         function renderFinance() {
+            if (!hasPermission('view_finance')) {
+                document.getElementById('financeSummary').innerHTML = '<div class="empty-state"><i class="fas fa-lock"></i><p>Você não tem permissão para visualizar o financeiro</p></div>';
+                document.getElementById('transactionsList').innerHTML = '';
+                return;
+            }
+            
             let totalIncome = 0;
             let totalExpense = 0;
             transactions.forEach(t => {
@@ -1539,6 +2036,11 @@
         function renderTransactions() {
             const container = document.getElementById('transactionsList');
             container.innerHTML = '';
+            if (!hasPermission('view_finance')) {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-lock"></i><p>Sem permissão</p></div>';
+                return;
+            }
+            
             let filtered = transactions;
             if (transactionFilter === 'income') filtered = transactions.filter(t => t.type === 'income');
             else if (transactionFilter === 'expense') filtered = transactions.filter(t => t.type === 'expense');
@@ -1554,7 +2056,9 @@
                     <div><span style="font-weight:500;">${t.description}</span><br><span style="font-size:11px;color:var(--gray-400);">${t.date} • ${t.category}</span></div>
                     <span class="amount ${t.type === 'income' ? 'positive' : 'negative'}">${t.type === 'income' ? '+' : '-'} R$ ${t.amount.toFixed(2)}</span>
                 `;
-                div.onclick = () => openTransactionModal(t.id);
+                if (hasPermission('view_finance')) {
+                    div.onclick = () => openTransactionModal(t.id);
+                }
                 container.appendChild(div);
             });
         }
@@ -1565,7 +2069,14 @@
         }
 
         function openTransactionForm(id = null) {
-            if (!hasPermission('Ver Financeiro')) { showToast('❌ Você não tem permissão', 'error'); return; }
+            if (id && !hasPermission('edit_transactions')) {
+                showToast('🔒 Você não tem permissão para editar transações', 'warning');
+                return;
+            }
+            if (!id && !hasPermission('create_transactions')) {
+                showToast('🔒 Você não tem permissão para criar transações', 'warning');
+                return;
+            }
             editingType = 'transaction';
             editingId = id;
             const t = id ? transactions.find(x => x.id === id) : null;
@@ -1606,10 +2117,14 @@
             saveData();
             closeModal();
             renderFinance();
-            updateAll();
+            updateDashboard();
         }
 
         function openTransactionModal(id) {
+            if (!hasPermission('view_finance')) {
+                showToast('🔒 Você não tem permissão para visualizar transações', 'warning');
+                return;
+            }
             const t = transactions.find(x => x.id === id);
             if (!t) return;
             document.getElementById('modalTitle').innerHTML = '<i class="fas fa-coins"></i> ' + t.description;
@@ -1619,20 +2134,23 @@
                 <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;"><span>Categoria</span><span>${t.category}</span></div>
                 <div style="display:flex;justify-content:space-between;padding:6px 0;"><span>Data</span><span>${t.date}</span></div>
                 <div class="modal-actions">
-                    <button class="btn btn-edit" onclick="closeModal();openTransactionForm(${t.id})"><i class="fas fa-edit"></i> Editar</button>
-                    <button class="btn btn-delete" onclick="closeModal();deleteTransaction(${t.id})"><i class="fas fa-trash"></i> Excluir</button>
+                    ${hasPermission('edit_transactions') ? `<button class="btn btn-edit" onclick="closeModal();openTransactionForm(${t.id})"><i class="fas fa-edit"></i> Editar</button>` : ''}
+                    ${hasPermission('delete_transactions') ? `<button class="btn btn-delete" onclick="closeModal();deleteTransaction(${t.id})"><i class="fas fa-trash"></i> Excluir</button>` : ''}
                 </div>
             `;
             document.getElementById('modalOverlay').classList.add('active');
         }
 
         function deleteTransaction(id) {
-            if (!hasPermission('Ver Financeiro')) { showToast('❌ Você não tem permissão', 'error'); return; }
+            if (!hasPermission('delete_transactions')) {
+                showToast('🔒 Você não tem permissão para excluir transações', 'warning');
+                return;
+            }
             if (!confirm('Excluir esta transação?')) return;
             transactions = transactions.filter(t => t.id !== id);
             saveData();
             renderFinance();
-            updateAll();
+            updateDashboard();
             showToast('🗑️ Transação excluída', 'success');
         }
 
@@ -1642,22 +2160,20 @@
         function renderUsers() {
             const grid = document.getElementById('usersGrid');
             grid.innerHTML = '';
+            if (!hasPermission('view_users')) {
+                grid.innerHTML = '<div class="empty-state"><i class="fas fa-lock"></i><p>Você não tem permissão para visualizar usuários</p></div>';
+                return;
+            }
+            
             if (users.length === 0) {
                 grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><i class="fas fa-user-shield"></i><p>Nenhum usuário</p></div>';
                 return;
             }
-            const isAdminUser = isAdmin();
             users.forEach(u => {
                 const div = document.createElement('div');
                 div.className = 'user-card';
-                const roleClass = u.role === 'Administrador' ? 'admin' : 
-                                 u.role === 'Gerente' ? 'manager' : 
-                                 u.role === 'Vendedor' ? 'seller' : 
-                                 u.role === 'Operador de Caixa' ? 'cashier' : 
-                                 u.role === 'Estoquista' ? 'stockist' : 
-                                 u.role === 'Financeiro' ? 'finance' : 
-                                 u.role === 'Comprador' ? 'buyer' : 'attendant';
-                const canEdit = isAdminUser || u.id === currentUser.id;
+                const roleClass = u.role === 'Administrador' ? 'admin' : u.role === 'Gerente' ? 'manager' : u.role === 'Vendedor' ? 'seller' : 'active';
+                const canEdit = isAdmin() || u.id === currentUser.id;
                 div.innerHTML = `
                     <div class="name">${u.name}</div>
                     <div style="font-size:12px;color:var(--gray-400);"><i class="fas fa-envelope"></i> ${u.email}</div>
@@ -1665,8 +2181,7 @@
                     <div style="font-size:10px;color:var(--gray-400);margin-top:4px;">🔑 ${u.permissions && u.permissions.includes('all') ? 'Acesso Total' : (u.permissions ? u.permissions.length + ' permissões' : 'Sem permissões')}</div>
                     <div class="card-actions">
                         ${canEdit ? `<button class="btn btn-edit btn-sm" onclick="event.stopPropagation();openUserForm(${u.id})"><i class="fas fa-edit"></i> Editar</button>` : ''}
-                        ${isAdminUser && u.id !== 1 ? `<button class="btn btn-delete btn-sm" onclick="event.stopPropagation();deleteUser(${u.id})"><i class="fas fa-trash"></i> Excluir</button>` : ''}
-                        ${!isAdminUser && u.id === currentUser.id ? `<button class="btn btn-edit btn-sm" onclick="event.stopPropagation();openUserForm(${u.id})"><i class="fas fa-edit"></i> Meu Perfil</button>` : ''}
+                        ${isAdmin() && u.id !== 1 ? `<button class="btn btn-delete btn-sm" onclick="event.stopPropagation();deleteUser(${u.id})"><i class="fas fa-trash"></i> Excluir</button>` : ''}
                     </div>
                 `;
                 div.onclick = () => showToast('👤 ' + u.name + ' - ' + u.role);
@@ -1677,11 +2192,11 @@
 
         function openUserForm(id = null) {
             if (!isAdmin() && id !== currentUser.id && id !== null) {
-                showToast('❌ Apenas administradores podem editar outros usuários', 'error');
+                showToast('🔒 Apenas administradores podem editar outros usuários', 'warning');
                 return;
             }
             if (!isAdmin() && id === null) {
-                showToast('❌ Apenas administradores podem criar novos usuários', 'error');
+                showToast('🔒 Apenas administradores podem criar novos usuários', 'warning');
                 return;
             }
             
@@ -1693,29 +2208,27 @@
             const roles = ['Administrador','Gerente','Vendedor','Operador de Caixa','Estoquista','Financeiro','Comprador','Atendimento'];
             const roleOpts = roles.map(r => `<option value="${r}" ${u && u.role === r ? 'selected' : ''}>${r}</option>`).join('');
             
+            // Lista de permissões disponíveis
             const allPermissions = [
-                'Ver Dashboard', 'Fazer Venda', 'Cancelar Venda', 'Dar Desconto',
-                'Abrir Caixa', 'Fechar Caixa', 'Cadastrar Produto', 'Editar Produto',
-                'Excluir Produto', 'Ajustar Estoque', 'Ver Estoque', 'Cadastrar Cliente',
-                'Editar Cliente', 'Excluir Cliente', 'Cadastrar Fornecedor', 'Emitir Nota Fiscal',
-                'Gerar Etiquetas', 'Imprimir Relatórios', 'Ver Financeiro', 'Ver Lucro',
-                'Ver Custos', 'Exportar Excel', 'Exportar PDF', 'Gerenciar Usuários',
-                'Fazer Backup', 'Restaurar Backup', 'Configurar Sistema', 'Acessar API',
-                'Ver Logs', 'Aprovar Descontos', 'Autorizar Cancelamentos', 'Autorizar Trocas',
-                'Alterar Preços', 'Gerenciar Promoções', 'Criar Cupons', 'Ver Auditoria',
-                'Criar Pedidos', 'Cancelar Pedidos', 'Ver Relatórios'
+                'view_dashboard', 'view_products', 'create_products', 'edit_products', 'delete_products',
+                'view_suppliers', 'create_suppliers', 'edit_suppliers', 'delete_suppliers',
+                'view_orders', 'create_orders', 'edit_orders', 'delete_orders', 'invoice_orders',
+                'view_sales', 'create_sales', 'edit_sales', 'delete_sales',
+                'view_clients', 'create_clients', 'edit_clients', 'delete_clients',
+                'view_finance', 'create_transactions', 'edit_transactions', 'delete_transactions',
+                'view_users', 'create_users', 'edit_users', 'delete_users',
+                'export_data', 'import_data'
             ];
             
             const permCheckboxes = allPermissions.map(p => `
                 <label class="perm-item">
                     <input type="checkbox" value="${p}" ${u && u.permissions && u.permissions.includes(p) ? 'checked' : ''} ${u && u.permissions && u.permissions.includes('all') ? 'checked disabled' : ''} ${!isAdmin() ? 'disabled' : ''}>
-                    ${p}
+                    ${PERMISSIONS[p] || p}
                 </label>
             `).join('');
             
             const isOwnProfile = u && u.id === currentUser.id;
             const canChangeRole = isAdmin();
-            const canChangePermissions = isAdmin();
             
             document.getElementById('modalBody').innerHTML = `
                 <form onsubmit="saveUser(event)">
@@ -1730,7 +2243,7 @@
                     </div>
                     ${isOwnProfile ? '' : `
                     <div class="form-group">
-                        <label>Permissões Específicas ${!canChangePermissions ? '(Apenas administradores podem alterar)' : ''}</label>
+                        <label>Permissões Específicas ${!isAdmin() ? '(Apenas administradores podem alterar)' : ''}</label>
                         <div class="permissions-grid" id="permissionsGrid">${permCheckboxes}</div>
                         <div style="font-size:11px;color:var(--gray-400);margin-top:4px;">Marque as permissões individuais. "Administrador" tem acesso total.</div>
                     </div>
@@ -1784,17 +2297,19 @@
             saveData();
             closeModal();
             renderUsers();
-            updateUserDisplay();
+            populateUserSelect();
+            applyPermissions();
         }
 
         function deleteUser(id) {
-            if (!isAdmin()) { showToast('❌ Apenas administradores podem excluir usuários', 'error'); return; }
+            if (!isAdmin()) { showToast('🔒 Apenas administradores podem excluir usuários', 'error'); return; }
             if (id === 1) { showToast('❌ Não é possível excluir o administrador principal', 'error'); return; }
             if (id === currentUser.id) { showToast('❌ Não é possível excluir seu próprio usuário', 'error'); return; }
             if (!confirm('Excluir este usuário?')) return;
             users = users.filter(u => u.id !== id);
             saveData();
             renderUsers();
+            populateUserSelect();
             showToast('🗑️ Usuário excluído', 'success');
         }
 
@@ -1802,8 +2317,9 @@
         // BADGES
         // ========================================================================
         function updateBadges() {
-            const pending = orders.filter(o => o.status !== 'Pago' && o.status !== 'Cancelado').length;
-            document.getElementById('ordersBadge').textContent = pending;
+            const pendingOrders = orders.filter(o => o.status !== 'Faturado' && o.status !== 'Cancelado').length;
+            document.getElementById('ordersBadge').textContent = pendingOrders;
+            document.getElementById('salesBadge').textContent = sales.length;
             document.getElementById('usersBadge').textContent = users.length;
         }
 
@@ -1812,19 +2328,18 @@
         // ========================================================================
         function generateSuggestion() {
             const tips = [
-                '💡 Cadastre produtos para começar suas vendas',
-                '💡 Adicione fornecedores para organizar sua cadeia',
-                '💡 Crie uma venda para testar o fluxo de caixa',
-                '💡 Cadastre clientes para construir sua base de dados',
-                '💡 Registre transações financeiras para controle total'
+                '💡 Crie um novo pedido para iniciar o fluxo',
+                '💡 Fature um pedido para gerar uma venda',
+                '💡 Cadastre produtos para aumentar seu catálogo',
+                '💡 Adicione clientes para sua base de dados',
+                '💡 Acompanhe o fluxo de caixa no Financeiro'
             ];
-            if (products.length > 0 || sales.length > 0) {
+            if (orders.length > 0 || sales.length > 0) {
                 const msgs = [
-                    `📊 ${products.length} produtos em estoque`,
-                    `💰 ${sales.length} vendas realizadas no sistema`,
-                    `👥 ${clients.length} clientes cadastrados`,
                     `📦 ${orders.length} pedidos registrados`,
-                    `👤 ${users.length} usuários no sistema`
+                    `💰 ${sales.length} vendas realizadas`,
+                    `👥 ${clients.length} clientes cadastrados`,
+                    `📊 ${products.length} produtos em estoque`
                 ];
                 document.getElementById('aiMessage').textContent = msgs[Math.floor(Math.random() * msgs.length)];
             } else {
@@ -1869,16 +2384,14 @@
         // ========================================================================
         document.getElementById('loginPage').style.display = 'flex';
         document.getElementById('appContainer').classList.remove('active');
+        populateUserSelect();
 
-        console.log('🚀 JW TECIDOS ERP PRO - Sistema completo!');
-        console.log('📊 Todas as métricas são atualizadas automaticamente');
-        console.log('💰 Vendas geram transações financeiras automaticamente');
-        console.log('🔄 Atualização automática a cada 3 segundos');
-        console.log('🔐 Usuários de teste:');
-        console.log('   Admin: admin@jwtecidos.com / admin123');
-        console.log('   Vendedor: vendedor@jwtecidos.com / vendedor123');
-        console.log('   Gerente: gerente@jwtecidos.com / gerente123');
-        console.log('📦 Dados de exemplo carregados automaticamente!');
+        console.log('🚀 JW TECIDOS ERP PRO - Sistema com Permissões');
+        console.log('👤 Usuários disponíveis:');
+        console.log('   Admin: admin@jwtecidos.com / admin123 (Acesso Total)');
+        console.log('   Vendedor: vendedor@jwtecidos.com / vendedor123 (Restrito)');
+        console.log('   Gerente: gerente@jwtecidos.com / gerente123 (Moderado)');
+        console.log('🔒 Apenas o Administrador tem poderes totais');
     </script>
 </body>
 </html>
